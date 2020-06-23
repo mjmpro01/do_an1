@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="doanhthu1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="16e6e915-1ad8-4d01-a27d-676a70f44bfa">
+	<property name="ireport.zoom" value="1.7715610000000013"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="thang" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nam" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     HOADON."MAHD" AS HOADON_MAHD,
+     HOADON."MADP" AS HOADON_MADP,
+     HOADON."NGAYHD" AS HOADON_NGAYHD,
+     HOADON."TONGHOADON" AS HOADON_TONGHOADON,
+     HOADON."TIENPHONG" AS HOADON_TIENPHONG,
+     HOADON."TIENDV" AS HOADON_TIENDV
+FROM
+     "QLSV"."HOADON" HOADON
+where extract(month from ngayhd) =$P{thang} and extract (year from ngayhd) =$P{nam}]]>
+	</queryString>
+	<field name="HOADON_MAHD" class="java.lang.String"/>
+	<field name="HOADON_MADP" class="java.lang.String"/>
+	<field name="HOADON_NGAYHD" class="java.sql.Timestamp"/>
+	<field name="HOADON_TONGHOADON" class="java.math.BigDecimal"/>
+	<field name="HOADON_TIENPHONG" class="java.math.BigDecimal"/>
+	<field name="HOADON_TIENDV" class="java.math.BigDecimal"/>
+	<variable name="HOADON_TONGHOADON_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{HOADON_TONGHOADON}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="88" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="129" y="0" width="322" height="33" uuid="0b4fc0fe-db67-4559-bd5f-71d0a74dac20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[     Revenue statistics]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="288" y="33" width="174" height="22" uuid="2b6d9441-a504-4eca-adc7-436ea0ff7e99"/>
+				<text><![CDATA[Romance hotel ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="382" y="68" width="56" height="20" forecolor="#FF3300" uuid="0d04e654-af8c-42c7-afe5-54e6415b0552"/>
+				<text><![CDATA[Statistics by]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="438" y="68" width="13" height="20" forecolor="#FF3333" uuid="e69b03ad-d56a-4b38-b791-965ac68b8633"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{thang}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="451" y="68" width="0" height="20" forecolor="#FF3300" uuid="5ba1340c-b33f-45f7-a7fa-8b3e162fb444"/>
+				<text><![CDATA[/]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="457" y="68" width="23" height="20" forecolor="#FF3333" uuid="1cd11c5c-e5b1-4645-8ad0-87925378a844"/>
+				<textFieldExpression><![CDATA[$P{nam}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="c8b41fce-ee0e-4048-8000-81ad87b01f01"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="2" y="16" width="553" height="20" backcolor="#FF6600" uuid="daa97eba-128c-4a9c-bac4-2ff8fea4f0a6"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="185" y="19" width="185" height="15" forecolor="#000000" uuid="aa6a43e7-f115-4162-a14f-b7c6bb6b60ce"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Invoice date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="21" width="185" height="15" forecolor="#000000" uuid="c503fcc4-7f87-46a2-976b-388b97e5a92d"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Code invoice]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="368" y="21" width="185" height="15" forecolor="#000000" uuid="f9ded7a7-d2b2-4440-b2a0-1ee0bbee346d"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[            Price]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="cf533331-9518-4cb7-9c3b-72ff19a811b0"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="185" y="0" width="185" height="15" uuid="8d82c863-e17f-41e9-a01c-5ed64326d166"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{HOADON_NGAYHD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="185" height="15" uuid="a7dafe62-2c9f-4c95-8e89-a765fa282bd5"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{HOADON_MAHD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="370" y="0" width="143" height="15" uuid="b00a9856-52c5-4e31-baa3-1f05a4610500"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{HOADON_TONGHOADON}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="513" y="0" width="42" height="15" uuid="995175f9-99b7-452e-bacd-7aa9c52d87cd"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[   vnd]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="50">
+			<textField>
+				<reportElement x="428" y="11" width="85" height="20" uuid="bc362b25-fdc3-4c96-8d0a-0175581a777c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{HOADON_TONGHOADON_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="513" y="11" width="42" height="20" uuid="0bdf2fd5-d098-47bd-9269-781e164feec8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[   vnd]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="328" y="11" width="100" height="20" uuid="ee33cd4f-200f-4c89-9ec8-748f1d34d0eb"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total price:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

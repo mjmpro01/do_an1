@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="hoadon1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fec1821b-5675-4d64-bf16-43489fc032d3">
+	<property name="ireport.zoom" value="1.6105100000000019"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="MAPHONG" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     HOADON."MAHD" AS HOADON_MAHD,
+     HOADON."MADP" AS HOADON_MADP,
+     HOADON."NGAYHD" AS HOADON_NGAYHD,
+     HOADON."TONGHOADON" AS HOADON_TONGHOADON,
+     HOADON."TIENPHONG" AS HOADON_TIENPHONG,
+     HOADON."TIENDV" AS HOADON_TIENDV,
+     DATPHONG."MADP" AS DATPHONG_MADP,
+     DATPHONG."MAPHONG" AS DATPHONG_MAPHONG,
+     DATPHONG."MANV" AS DATPHONG_MANV,
+     DATPHONG."MAKH" AS DATPHONG_MAKH,
+     DATPHONG."NGAYTHUE" AS DATPHONG_NGAYTHUE,
+     DATPHONG."NGAYDI" AS DATPHONG_NGAYDI,
+     DATPHONG."TRANGTHAI" AS DATPHONG_TRANGTHAI
+FROM
+     "QLSV"."DATPHONG" DATPHONG INNER JOIN "QLSV"."HOADON" HOADON ON DATPHONG."MADP" = HOADON."MADP"
+WHERE
+	DATPHONG.MAPHONG = $P{MAPHONG}
+FETCH FIRST 1 ROW ONLY]]>
+	</queryString>
+	<field name="HOADON_MAHD" class="java.lang.String"/>
+	<field name="HOADON_MADP" class="java.lang.String"/>
+	<field name="HOADON_NGAYHD" class="java.sql.Timestamp"/>
+	<field name="HOADON_TONGHOADON" class="java.math.BigDecimal"/>
+	<field name="HOADON_TIENPHONG" class="java.math.BigDecimal"/>
+	<field name="HOADON_TIENDV" class="java.math.BigDecimal"/>
+	<field name="DATPHONG_MADP" class="java.lang.String"/>
+	<field name="DATPHONG_MAPHONG" class="java.lang.String"/>
+	<field name="DATPHONG_MANV" class="java.lang.String"/>
+	<field name="DATPHONG_MAKH" class="java.lang.String"/>
+	<field name="DATPHONG_NGAYTHUE" class="java.sql.Timestamp"/>
+	<field name="DATPHONG_NGAYDI" class="java.sql.Timestamp"/>
+	<field name="DATPHONG_TRANGTHAI" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="154" splitType="Stretch">
+			<staticText>
+				<reportElement x="263" y="10" width="291" height="45" uuid="a459dc76-7dc9-4d74-82a8-afea9accefdc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Lucida Fax" size="24" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Romance Hotel]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="414" y="129" width="138" height="20" uuid="6a6f8d01-47ac-47f9-8c11-f3ab4b5e2f7c"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="45" width="135" height="107" uuid="e65a029d-a56f-4808-a3c4-c8360e855c22"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[721 Nguyễn Huệ,             Khu phố 6,            thị xã Đồng Xoài ,          tỉnh Bình Phước,             Việt Nam]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="344" y="129" width="70" height="20" uuid="d03c4001-4d32-4435-8524-93f21874b602"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice date:]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="344" y="67" width="200" height="50" uuid="50bd4d56-96c0-467d-90e8-a8095321b762"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39 (Extended)" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA["1234"]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="27">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="1" width="555" height="20" backcolor="#FF6600" uuid="1e3a4599-8781-4702-aa70-b78bdbecf6d2"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="35" y="0" width="100" height="20" uuid="20cc13ec-29dc-4dcd-8d18-2653e79f5511"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="218" y="1" width="100" height="19" uuid="3deb7032-d9e2-4a77-8e85-a0f191c0e72e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Code room]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="366" y="1" width="183" height="20" uuid="8702b530-43b0-47a0-bc6c-3c7ef05eedf7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Line total ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="50">
+			<staticText>
+				<reportElement x="18" y="30" width="100" height="20" uuid="f82bd5b8-c598-473d-9f04-2c2d3cf64521"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Other charge]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="369" y="30" width="111" height="20" uuid="c3866201-cc8c-43ec-a6fa-c62c3b6ee7b3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{HOADON_TIENDV}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="480" y="30" width="75" height="20" uuid="8734b9bb-eb72-4653-aeb0-e752e189c257"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VND]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="477" y="0" width="77" height="20" uuid="e45c2572-e582-46cf-a365-e6e8ca49dfc7"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VND]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="366" y="0" width="111" height="20" uuid="0dc41bbf-bc5a-469f-b684-0b3b5be4692d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{HOADON_TIENPHONG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="218" y="0" width="100" height="20" uuid="d5250d5d-a273-4ae4-9347-4dc91d7c1a5a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{MAPHONG}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="18" y="0" width="100" height="20" uuid="6dae77da-a851-48b2-bf7e-861ecac9b872"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Room charge]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<line>
+				<reportElement x="218" y="0" width="336" height="1" uuid="9ff12b06-d589-4bc8-88fb-6a3f0e082303"/>
+			</line>
+			<staticText>
+				<reportElement x="318" y="20" width="54" height="20" forecolor="#CC0000" uuid="5d47c936-9317-471c-8e7a-79cba9452a7c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="372" y="20" width="111" height="20" uuid="36e307f0-4928-4722-87ea-8e32624fb179"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{HOADON_TONGHOADON}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="480" y="20" width="69" height="20" uuid="78ec5a22-ec71-4d49-92ef-c559715e6932"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VND]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

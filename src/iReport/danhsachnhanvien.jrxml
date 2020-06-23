@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="danhsachnhanvien" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="90526474-5fa9-468a-a7ba-ec4737a380a4">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString>
+		<![CDATA[SELECT
+     NHANVIEN."MANV" AS NHANVIEN_MANV,
+     NHANVIEN."HOTENNV" AS NHANVIEN_HOTENNV,
+     NHANVIEN."GIOITINH" AS NHANVIEN_GIOITINH,
+     NHANVIEN."SODT" AS NHANVIEN_SODT,
+     NHANVIEN."DIACHI" AS NHANVIEN_DIACHI,
+     NHANVIEN."CMND" AS NHANVIEN_CMND,
+     NHANVIEN."CHUCVU" AS NHANVIEN_CHUCVU
+FROM
+     "QLSV"."NHANVIEN" NHANVIEN
+order by nhanvien.chucvu]]>
+	</queryString>
+	<field name="NHANVIEN_MANV" class="java.lang.String"/>
+	<field name="NHANVIEN_HOTENNV" class="java.lang.String"/>
+	<field name="NHANVIEN_GIOITINH" class="java.lang.String"/>
+	<field name="NHANVIEN_SODT" class="java.math.BigDecimal"/>
+	<field name="NHANVIEN_DIACHI" class="java.lang.String"/>
+	<field name="NHANVIEN_CMND" class="java.math.BigDecimal"/>
+	<field name="NHANVIEN_CHUCVU" class="java.lang.String"/>
+	<group name="NHANVIEN_CHUCVU">
+		<groupExpression><![CDATA[$F{NHANVIEN_CHUCVU}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<textField>
+					<reportElement style="SubTitle" x="47" y="13" width="506" height="24" forecolor="#006600" uuid="1db3e5b0-afce-4749-b711-94260b233f65"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NHANVIEN_CHUCVU}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement mode="Opaque" x="0" y="13" width="36" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="56cff13c-83bc-4d11-9263-39f1f01c4b9c"/>
+				</rectangle>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="14"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="13" width="326" height="33" uuid="95c6e152-4afa-4c85-b108-93d3e6399f95"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[   Employee statistics ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="197" y="46" width="174" height="22" uuid="30104270-376a-4aae-8441-e7ea173cd1f7"/>
+				<text><![CDATA[Romance hotel]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="2660d949-d490-4193-90dd-94bc3fda206b"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="92" height="15" uuid="3098a812-724a-4e11-ab01-078575118151"/>
+				<text><![CDATA[Code emp]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="92" y="19" width="92" height="15" uuid="ac8ef0ce-46b2-4705-b2aa-e91ad972672a"/>
+				<text><![CDATA[Fullname]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="184" y="19" width="92" height="15" uuid="643bf108-466c-4258-843d-8626c7a729a3"/>
+				<text><![CDATA[Gender]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="276" y="19" width="92" height="15" uuid="7cae1bed-61f4-4868-9275-624d51a93c09"/>
+				<text><![CDATA[Phone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="368" y="19" width="92" height="15" uuid="a33e7680-207f-4cd2-8b2b-049255de22a0"/>
+				<text><![CDATA[Address]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="460" y="19" width="92" height="15" uuid="767b1d30-4616-455e-8923-3dd60131106e"/>
+				<text><![CDATA[CMND]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="ce82f907-5654-4afa-9306-081f95897e86"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="92" height="15" uuid="31f390c1-99fc-4a2d-8025-6b4349a3b6f5"/>
+				<textFieldExpression><![CDATA[$F{NHANVIEN_MANV}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="92" y="0" width="92" height="15" uuid="fb5e6a06-0cb7-4bf7-ae65-615222a22f7e"/>
+				<textFieldExpression><![CDATA[$F{NHANVIEN_HOTENNV}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="184" y="0" width="92" height="15" uuid="f51f8110-96e8-4d5b-a851-2b8f4f816edb"/>
+				<textFieldExpression><![CDATA[$F{NHANVIEN_GIOITINH}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="276" y="0" width="92" height="15" uuid="6ad6a8f6-c5a3-4b94-99e5-c86e6b4f3228"/>
+				<textFieldExpression><![CDATA[$F{NHANVIEN_SODT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="368" y="0" width="92" height="15" uuid="b139f061-30ce-4650-ac9f-b6eb57d5f3c8"/>
+				<textFieldExpression><![CDATA[$F{NHANVIEN_DIACHI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="460" y="0" width="92" height="15" uuid="eb349620-7fef-4b59-bd22-ec3b31416679"/>
+				<textFieldExpression><![CDATA[$F{NHANVIEN_CMND}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="f43982eb-2eb1-4d7f-8030-f08773ba30c2"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="d3e0cc9b-37a7-4359-b2bb-5e2a76245cd1"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="139488f3-137c-4113-bd25-bb8f9b13b47f"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="648f39fd-47f5-40c0-8cf2-04f4566920bc"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HOADON" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be69c397-d43d-436b-8e69-85edb324ee20">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<parameter name="maphong" class="java.lang.String">
+		<defaultValueExpression><![CDATA[R001]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     HD."MAPHONG" AS HD_MAPHONG,
+     HD."TENLOAIPHONG" AS HD_TENLOAIPHONG,
+     HD."GIA" AS HD_GIA,
+     HD."SONGAY" AS HD_SONGAY,
+     HD."THANHTIEN" AS HD_THANHTIEN
+FROM
+     "QLSV"."HD" HD
+WHERE
+     HD.MAPHONG = $P{maphong}]]>
+	</queryString>
+	<field name="HD_MAPHONG" class="java.lang.String"/>
+	<field name="HD_TENLOAIPHONG" class="java.lang.String"/>
+	<field name="HD_GIA" class="java.math.BigDecimal"/>
+	<field name="HD_SONGAY" class="java.math.BigDecimal"/>
+	<field name="HD_THANHTIEN" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="209" splitType="Stretch">
+			<staticText>
+				<reportElement x="240" y="0" width="315" height="45" uuid="2d326ba8-7dba-4336-b229-40dc3c6aa8b7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Lucida Fax" size="24" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Hotel Romance ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="79" width="111" height="84" uuid="622b0c04-8f62-4318-889b-8b0288ee2ec6"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[721 Nguyễn Huệ,             Khu phố 6,            thị xã Đồng Xoài ,          tỉnh Bình Phước,             Việt Nam]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="347" y="176" width="70" height="20" uuid="825746f8-98b4-4f71-b962-9c3e8a3b72af"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice date:]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="417" y="176" width="138" height="20" uuid="867906bb-7c3b-4183-9569-58f013c8cecf"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="45" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="23" width="555" height="20" backcolor="#FF9933" uuid="ccfb0c02-3a1c-4bdf-a22c-f79fc46b37b8"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="23" width="100" height="20" uuid="07f019ad-2773-4219-8f8e-0c1d7406d29d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="23" width="100" height="20" uuid="30238e5d-6fb3-4243-91d5-86ac5faacff6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quanlity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="23" width="100" height="20" uuid="0a7e4592-26e3-4b10-9312-f9cf391909b7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[per Item ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="23" width="100" height="20" uuid="a2984ec4-1ea3-4449-86e3-04de6a977ea1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Line total ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="60" splitType="Stretch">
+			<textField>
+				<reportElement x="156" y="11" width="100" height="20" uuid="0b7a981a-9ea8-495e-923f-f3d61bf59ccd"/>
+				<textFieldExpression><![CDATA[F{HD_SONGAY}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="288" y="11" width="100" height="20" uuid="53c3ed97-6118-4cea-a322-1a4e204b4513"/>
+				<textFieldExpression><![CDATA[$F{HD_GIA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="428" y="11" width="111" height="20" uuid="c30cb755-b56d-4fbb-8173-cb7e522233bb"/>
+				<textFieldExpression><![CDATA[$F{HD_THANHTIEN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="19" y="11" width="100" height="20" uuid="9b28a5f0-42e4-4a2c-b370-ec20ae722b23"/>
+				<textFieldExpression><![CDATA[$P{maphong}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

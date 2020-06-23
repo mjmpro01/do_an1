@@ -1,0 +1,189 @@
+ CREATE OR REPLACE FORCE EDITIONABLE VIEW "QLSV"."HD" ("MAPHONG", "TENLOAIPHONG", "GIA", "SONGAY", "THANHTIEN") AS 
+  select  ph.maphong, lp.tenloaiphong, lp.gia,
+            (case 
+                 when dp.ndi = dp.nthue then 1
+                 else round((MONTHS_BETWEEN(dp.ndi, dp.nthue))*31)         
+            end ) ssn,
+            (case 
+                 when dp.ndi = dp.nthue then lp.gia                
+                 else  round((MONTHS_BETWEEN(dp.ndi, dp.nthue))*31) * lp.gia                
+            end ) tt 
+           
+    
+    from 
+        PHONG ph left join LOAIPHONG lp on ph.MALOAIPHONG = lp.MALOAIPHONG
+    left join 
+        (select maphong, min(ngaythue) nthue,min(ngaydi) ndi
+                        from datphong
+                        where trangthai = 0
+                        group by maphong) dp
+    on ph.maphong = dp.maphong;
+
+
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "QLSV"."PHONG_DATPHONG" ("MAPHONG") AS 
+  SELECT distinct maphong
+    
+FROM datphong;
+
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "QLSV"."SDDV" ("MAPHONG", "TENDICHVU", "SOLUONG", "THANHTIEN") AS 
+  select  pd.maphong, dv.tendv, sum(sd.soluongsd) sl, sum(thanhtien) tt
+    from DICHVU dv join SUDUNGDICHVU sd on dv.MADV = sd.MADV 
+    join 
+                        (select maphong, madp, min(ngaythue) nthue, min(ngaydi) ndi
+                            from datphong
+                            where trangthai = 0
+                            group by madp,maphong) pd
+    on pd.madp = sd.madp
+    group by  pd.maphong, dv.tendv;
+
+
+-- procedure
+
+create or replace procedure D_NV (in_manv NHANVIEN.MANV%type)
+is
+begin
+    delete from TAIKHOAN where MANV = in_manv;
+    delete from NHANVIEN where MANV = in_manv;
+end;
+
+
+create or replace PROCEDURE i_pdp (
+    in_maphong    VARCHAR2,
+    in_ngaydp     DATE,
+    in_ngaynhan   DATE,
+    in_fullname   VARCHAR2,
+    in_ngaysinh   DATE,
+    in_sex        VARCHAR2,
+    in_cmnd       NUMBER,
+    in_phone      NUMBER,
+    in_address    VARCHAR2,
+    in_loaikhach  VARCHAR2,
+    in_manv       VARCHAR2
+) IS
+
+    v_mapdp  VARCHAR2(50);
+    v_id1    VARCHAR2(50);
+    v_maso1  NUMBER;
+    v_maso2  NUMBER;
+    v_makh   VARCHAR2(10);
+    v_id2    VARCHAR2(50);
+BEGIN
+    v_mapdp := 'DP';
+    SELECT
+        id_pdp_seq.NEXTVAL
+    INTO v_maso1
+    FROM
+        dual;
+
+    SELECT
+        v_mapdp || v_maso1
+    INTO v_id1
+    FROM
+        dual;
+
+    v_makh := 'KH';
+    SELECT
+        id_kh_seq.NEXTVAL
+    INTO v_maso2
+    FROM
+        dual;
+
+    SELECT
+        v_makh || v_maso2
+    INTO v_id2
+    FROM
+        dual;
+
+    insert
+    INTO khachhang
+VALUES (v_ID2,
+in_fullname,
+in_ngaysinh,
+in_sex,
+in_cmnd,
+in_phone,
+in_address,
+in_loaikhach );
+
+    INSERT INTO datphong(madp, maphong, manv, makh, ngaythue, ngaydi) VALUES (
+        v_id1,
+        in_maphong,
+        in_manv,
+        v_id2,
+        in_ngaydp,
+        in_ngaynhan
+    );
+
+    COMMIT;
+END;
+
+
+create or replace PROCEDURE nv_tk (
+    in_manv       nhanvien.manv%TYPE,
+    in_tennv      nhanvien.hotennv%TYPE,
+    in_gioitinh   nhanvien.gioitinh%TYPE,
+    in_sdt        nhanvien.sodt%TYPE,
+    in_diachi     nhanvien.diachi%TYPE,
+    in_cmnd       nhanvien.cmnd%TYPE,
+    in_chucvu     nhanvien.chucvu%TYPE
+) IS
+    v_mk    taikhoan.matkhau%TYPE;
+    v_mapq  taikhoan.mapq%TYPE;
+
+BEGIN
+    SELECT
+        mapq
+    INTO v_mapq
+    FROM
+        phanquyen
+    WHERE
+        tenpq = in_chucvu;
+
+    INSERT INTO nhanvien VALUES (
+        in_manv,
+        in_tennv,
+        in_gioitinh,
+        in_sdt,
+        in_diachi,
+        in_cmnd,
+        in_chucvu
+    );
+
+    v_mk := in_manv;
+    INSERT INTO taikhoan VALUES (
+        v_mapq,
+        in_manv,
+        v_mk
+    );
+
+    COMMIT;
+END;
+
+
+create or replace PROCEDURE u_room (
+    in_maphong  phong.maphong%TYPE,
+    in_tlp      loaiphong.tenloaiphong%TYPE
+) IS
+    v_malp  loaiphong.maloaiphong%TYPE;
+BEGIN
+   
+    SELECT
+        maloaiphong
+    INTO v_malp
+    FROM
+        loaiphong
+    WHERE
+        tenloaiphong = in_tlp;
+
+    update phong 
+    set maloaiphong = v_malp
+    where maphong = in_maphong ;
+END;
+
+-- Sequence
+
+
+   CREATE SEQUENCE  "QLSV"."ID_KH_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 366 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+	
+   CREATE SEQUENCE  "QLSV"."ID_PDP_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 252 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+

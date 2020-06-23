@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="90f1045a-9303-4848-8281-34b1dd9c38e1">
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     PHONG."MAPHONG" AS PHONG_MAPHONG,
+     PHONG."MATINHTRANG" AS PHONG_MATINHTRANG,
+     PHONG."MALOAIPHONG" AS PHONG_MALOAIPHONG,
+     TINHTRANG."MATINHTRANG" AS TINHTRANG_MATINHTRANG,
+     TINHTRANG."TENTINHTRANG" AS TINHTRANG_TENTINHTRANG,
+     LOAIPHONG."MALOAIPHONG" AS LOAIPHONG_MALOAIPHONG,
+     LOAIPHONG."TENLOAIPHONG" AS LOAIPHONG_TENLOAIPHONG,
+     LOAIPHONG."DONGIA" AS LOAIPHONG_DONGIA
+FROM
+     "QLKS_2"."TINHTRANG" TINHTRANG INNER JOIN "QLKS_2"."PHONG" PHONG ON TINHTRANG."MATINHTRANG" = PHONG."MATINHTRANG"
+     INNER JOIN "QLKS_2"."LOAIPHONG" LOAIPHONG ON PHONG."MALOAIPHONG" = LOAIPHONG."MALOAIPHONG"]]>
+	</queryString>
+	<field name="LOAIPHONG_TENLOAIPHONG" class="java.lang.String"/>
+	<group name="LOAIPHONG_TENLOAIPHONG">
+		<groupExpression><![CDATA[$F{LOAIPHONG_TENLOAIPHONG}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

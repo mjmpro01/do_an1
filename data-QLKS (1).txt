@@ -1,0 +1,180 @@
+/*==============================================================*/
+/* DBMS name:      ORACLE Version 12c                           */
+/* Created on:     5/10/2020 9:23:55 PM                         */
+/*==============================================================*/
+
+/*==============================================================*/
+/* Table: DICHVU                                                */
+/*==============================================================*/
+create table DICHVU (
+   MADV                 VARCHAR2(10)              not null,
+   TENDV                NVARCHAR2(50),
+   DVT                  NVARCHAR2(10),
+   GIA                  NUMBER(19,4)
+);
+
+alter table DICHVU
+   add constraint PK_DICHVU primary key (MADV);
+
+/*==============================================================*/
+/* Table: HOADONTONG                                            */
+/*==============================================================*/
+create table HOADON (
+   MAHD                 VARCHAR2(10)              not null,
+   MADP                 VARCHAR2(10)              not null,
+   NGAYHD               DATE,
+   TONGHOADON           NUMBER(19,4)
+);
+
+alter table HOADON
+   add constraint PK_HOADON primary key (MAHD);
+
+/*==============================================================*/
+/* Table: KHACHHANG                                             */
+/*==============================================================*/
+create table KHACHHANG (
+   MAKH                 VARCHAR2(10)              not null,
+   HOTEN                NVARCHAR2(20),
+   NGAYSINH             DATE,
+   GIOITINH             varchar2(6),
+   CMND                 NUMBER(20),
+   SODT                 NUMBER(15),
+   DIACHI               NVARCHAR2(100),
+   LOAIKHACH            VARCHAR2(20)
+);
+
+alter table KHACHHANG
+   add constraint PK_KHACHHANG primary key (MAKH);
+
+/*==============================================================*/
+/* Table: LOAIPHONG                                             */
+/*==============================================================*/
+create table LOAIPHONG (
+   MALOAIPHONG          VARCHAR2(10)              not null,
+   TENLOAIPHONG         NVARCHAR2(30),
+   GIA                  NUMBER(19,4)
+);
+
+alter table LOAIPHONG
+   add constraint PK_LOAIPHONG primary key (MALOAIPHONG);
+
+/*==============================================================*/
+/* Table: NHANVIEN                                              */
+/*==============================================================*/
+create table NHANVIEN (
+   MANV                 VARCHAR2(10)              not null,
+   HOTENNV              NVARCHAR2(20),
+   GIOITINH             VARCHAR(6),
+   SODT                 NUMBER(15),
+   DIACHI               NVARCHAR2(50),
+   CMND                 NUMBER(9),
+   CHUCVU               VARCHAR2(20)
+);
+
+alter table NHANVIEN
+   add constraint PK_NHANVIEN primary key (MANV);
+
+/*==============================================================*/
+/* Table: PHANQUYEN                                             */
+/*==============================================================*/
+create table PHANQUYEN (
+   MAPQ                 VARCHAR2(10)              not null,
+   TENPQ                VARCHAR2(20)
+);
+
+alter table PHANQUYEN
+   add constraint PK_PHANQUYEN primary key (MAPQ);
+
+/*==============================================================*/
+/* Table: DATPHONG                                         */
+/*==============================================================*/
+create table DATPHONG (
+   MADP                VARCHAR2(10)              not null,
+   MAPHONG              VARCHAR2(10)              not null,
+   MANV                 VARCHAR2(10)              not null,
+   MAKH                 VARCHAR2(10)              not null,
+   NGAYTHUE              DATE,
+   NGAYDI             DATE,
+   TRANGTHAI           number(2)
+);
+
+alter table DATPHONG
+   add constraint PK_PHIEUDATPHONG primary key (MADP);                             
+
+/*==============================================================*/
+/* Table: PHONG                                                 */
+/*==============================================================*/
+create table PHONG (
+   MAPHONG              VARCHAR2(10)              not null,
+   MALOAIPHONG          VARCHAR2(10)              not null
+);
+
+alter table PHONG
+   add constraint PK_PHONG primary key (MAPHONG);
+
+/*==============================================================*/
+/* Table: SUDUNGDICHVU                                          */
+/*==============================================================*/
+create table SUDUNGDICHVU (
+   MASDDV               VARCHAR2(10)               not null,
+   MADV                 VARCHAR2(10)              not null,
+   MADP                VARCHAR2(10)              not null,
+   SOLUONGSD            NUMBER(10),
+   NGAYSD                DATE,
+   THANHTIEN            NUMBER(19,4)
+);
+
+alter table SUDUNGDICHVU
+   add constraint PK_SUDUNGDICHVU primary key (MASDDV);
+
+/*==============================================================*/
+/* Table: TAIKHOAN                                              */
+/*==============================================================*/
+create table TAIKHOAN (
+   MAPQ                 VARCHAR2(10)              not null,
+   MANV                 VARCHAR2(10)              not null,
+   MATKHAU              VARCHAR2(10)
+);
+
+alter table TAIKHOAN
+   add constraint PK_TAIKHOAN primary key (MAPQ, MANV);  
+
+
+alter table HOADON
+   add constraint FK_HOADONTO_COHDTP_DATPHONG foreign key (MADP)
+      references DATPHONG (MADP);
+      
+alter table DATPHONG
+   add constraint FK_PHIEUDAT_DIENPDP_KHACHHAN foreign key (MAKH)
+      references KHACHHANG (MAKH);
+
+alter table DATPHONG
+   add constraint FK_PHIEUDAT_PHONG foreign key (MAPHONG)
+      references PHONG (MAPHONG);
+
+alter table DATPHONG
+   add constraint FK_PHIEUTHU_LAPPTP_NHANVIEN foreign key (MANV)
+      references NHANVIEN (MANV);
+
+alter table PHONG
+   add constraint FK_PHONG_COLP_LOAIPHON foreign key (MALOAIPHONG)
+      references LOAIPHONG (MALOAIPHONG);
+
+alter table SUDUNGDICHVU
+   add constraint FK_SUDUNGDI_DUOC_DICHVU foreign key (MADV)
+      references DICHVU (MADV);
+
+alter table SUDUNGDICHVU
+   add constraint FK_SDDV_DATPHONG foreign key (MADP)
+      references DATPHONG (MADP);
+
+alter table TAIKHOAN
+   add constraint FK_TAIKHOAN_TAIKHOAN_PHANQUYE foreign key (MAPQ)
+      references PHANQUYEN (MAPQ);
+
+alter table TAIKHOAN
+   add constraint FK_TAIKHOAN_TAIKHOAN2_NHANVIEN foreign key (MANV)
+      references NHANVIEN (MANV);
+      
+ALTER TABLE DATPHONG
+    MODIFY TRANGTHAI DEFAULT '0';      
