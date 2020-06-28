@@ -19,11 +19,13 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import quanlykhachsan.BUS.chisoBUS;
 import quanlykhachsan.BUS.dichvuBUS;
+import quanlykhachsan.BUS.giaphongBUS;
 import quanlykhachsan.BUS.nhanvienBUS;
 import quanlykhachsan.BUS.phongBUS;
 import quanlykhachsan.DAO.ConnectDataBase;
 import quanlykhachsan.DTO.chisoDTO;
 import quanlykhachsan.DTO.dichvuDTO;
+import quanlykhachsan.DTO.giaphongDTO;
 import quanlykhachsan.DTO.phongDTO;
 
 /**
@@ -75,6 +77,18 @@ public final class GiamdocGUI extends javax.swing.JFrame {
 
     }
 
+    public void load_table_giaphong() throws SQLException {
+
+        giaphongBUS gpBUS = new giaphongBUS();
+        gpBUS.showloaiphong((DefaultTableModel) tblgiaphong.getModel());
+
+    }
+    public void load_table_chucvu_luong() throws SQLException {
+
+        nhanvienBUS nvBUS = new nhanvienBUS();
+        nvBUS.showchucvu_luong((DefaultTableModel) tblchucvu_luong.getModel());
+
+    }
     public void autoID() throws SQLException {
         c = new ConnectDataBase();
 
@@ -129,6 +143,23 @@ public final class GiamdocGUI extends javax.swing.JFrame {
 
     }
 
+    public void autoID_loaiphong() throws SQLException {
+        c = new ConnectDataBase();
+
+        String sql = "select max(maloaiphong) from loaiphong";
+
+        ResultSet rs = c.executeQuery(sql);
+        rs.next();
+        rs.getString("max(maloaiphong)");
+        if (rs.getString("max(maloaiphong)") == null) {
+            maloaiphong1.setText("LP01");
+        } else {
+            long id = Long.parseLong(rs.getString("max(maloaiphong)").substring(2, rs.getString("max(maloaiphong)").length()));
+            id++;
+            maloaiphong1.setText("LP" + String.format("%02d", id));
+        }
+
+    }
 //    public void autoID_chiso() throws SQLException {
 //        c = new ConnectDataBase();
 //
@@ -166,6 +197,8 @@ public final class GiamdocGUI extends javax.swing.JFrame {
         jLabel35 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel41 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -238,7 +271,33 @@ public final class GiamdocGUI extends javax.swing.JFrame {
         jLabel34 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         chiso1 = new javax.swing.JTextField();
-        tenchiso1 = new javax.swing.JComboBox<>();
+        chiso2 = new javax.swing.JTextField();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        delete2 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        tblgiaphong = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        loaiphong1 = new javax.swing.JTextField();
+        gia2 = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        maloaiphong1 = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        tblchucvu_luong = new javax.swing.JTable();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        luong4 = new javax.swing.JTextField();
+        chucvu4 = new javax.swing.JComboBox<>();
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setText("Fullname: ");
@@ -327,7 +386,7 @@ public final class GiamdocGUI extends javax.swing.JFrame {
         jLabel37.setForeground(new java.awt.Color(255, 255, 255));
         jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlykhachsan/HinhAnh/adjust_64px.png"))); // NOI18N
-        jLabel37.setText("      Adjust index");
+        jLabel37.setText("           Adjust index");
         jLabel37.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(51, 0, 51)));
         jLabel37.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -356,25 +415,49 @@ public final class GiamdocGUI extends javax.swing.JFrame {
             }
         });
 
+        jLabel40.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel40.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel40.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlykhachsan/HinhAnh/adjust_64px.png"))); // NOI18N
+        jLabel40.setText("  Adjust room rates");
+        jLabel40.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(51, 0, 51)));
+        jLabel40.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel40MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel40MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel40MouseExited(evt);
+            }
+        });
+
+        jLabel41.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel41.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlykhachsan/HinhAnh/adjust_64px.png"))); // NOI18N
+        jLabel41.setText("Adjust emp's salary");
+        jLabel41.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(51, 0, 51)));
+        jLabel41.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel41MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel41MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel41MouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(jLabel1)))
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addGap(0, 2, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jLabel35, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
@@ -382,6 +465,21 @@ public final class GiamdocGUI extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabel1)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -399,6 +497,10 @@ public final class GiamdocGUI extends javax.swing.JFrame {
                 .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
@@ -483,11 +585,11 @@ public final class GiamdocGUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "MaNV", "Fullname", "Gender", "Phone number", "Address", "CMND", "Officials"
+                "MaNV", "Fullname", "Gender", "Phone number", "Address", "CMND", "Officials", "Salary"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -579,7 +681,7 @@ public final class GiamdocGUI extends javax.swing.JFrame {
         jLabel7.setText("MaNV:");
 
         chucvu2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        chucvu2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Director", "Receptionist", "Accountant" }));
+        chucvu2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Receptionist", "Accountant" }));
         chucvu2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chucvu2ActionPerformed(evt);
@@ -661,7 +763,7 @@ public final class GiamdocGUI extends javax.swing.JFrame {
                                 .addGap(86, 86, 86)
                                 .addComponent(manv1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jLabel15))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 713, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -894,7 +996,7 @@ public final class GiamdocGUI extends javax.swing.JFrame {
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(addroom1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                         .addComponent(deleteroom1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(71, 71, 71)
                         .addComponent(updateroom1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1166,7 +1268,7 @@ public final class GiamdocGUI extends javax.swing.JFrame {
                             .addComponent(jLabel60)
                             .addComponent(jLabel59, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel64, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
                         .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(madichvu1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1352,8 +1454,12 @@ public final class GiamdocGUI extends javax.swing.JFrame {
             }
         });
 
-        tenchiso1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        tenchiso1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Local", "Foreign" }));
+        chiso2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        chiso2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chiso2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -1375,21 +1481,21 @@ public final class GiamdocGUI extends javax.swing.JFrame {
                         .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tenchiso1, 0, 232, Short.MAX_VALUE)
-                            .addComponent(chiso1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 261, Short.MAX_VALUE)
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(delete1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43)
                         .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37)
                         .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(679, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(chiso1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(chiso2, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48))))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1401,15 +1507,13 @@ public final class GiamdocGUI extends javax.swing.JFrame {
                 .addGap(100, 100, 100)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(jLabel9))
-                            .addComponent(tenchiso1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(77, 77, 77)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(chiso1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11))
+                            .addComponent(jLabel9)
+                            .addComponent(chiso1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(88, 88, 88)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(chiso2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
@@ -1423,6 +1527,390 @@ public final class GiamdocGUI extends javax.swing.JFrame {
         );
 
         jPanel3.add(jPanel6, "card10");
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel10.setBackground(new java.awt.Color(153, 153, 255));
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 66, Short.MAX_VALUE)
+        );
+
+        jLabel25.setFont(new java.awt.Font("Rage Italic", 2, 36)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel25.setText("Romance hotel ");
+
+        jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlykhachsan/HinhAnh/add_new_64px.png"))); // NOI18N
+        jLabel28.setText("Add");
+        jLabel28.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel28.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel28MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel28MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel28MouseExited(evt);
+            }
+        });
+
+        delete2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        delete2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        delete2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlykhachsan/HinhAnh/delete_bin_64px.png"))); // NOI18N
+        delete2.setText("Delete");
+        delete2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        delete2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                delete2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                delete2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                delete2MouseExited(evt);
+            }
+        });
+
+        jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlykhachsan/HinhAnh/update_64px.png"))); // NOI18N
+        jLabel29.setText("Update");
+        jLabel29.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel29.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel29MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel29MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel29MouseExited(evt);
+            }
+        });
+
+        tblgiaphong.setAutoCreateRowSorter(true);
+        tblgiaphong.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tblgiaphong.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Code type room", "Type room", "Price"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tblgiaphong.setAlignmentX(2.0F);
+        tblgiaphong.setAlignmentY(2.0F);
+        tblgiaphong.setDoubleBuffered(true);
+        tblgiaphong.setDragEnabled(true);
+        tblgiaphong.setFillsViewportHeight(true);
+        tblgiaphong.setGridColor(new java.awt.Color(51, 0, 255));
+        tblgiaphong.setInheritsPopupMenu(true);
+        tblgiaphong.setName(""); // NOI18N
+        tblgiaphong.setRowHeight(30);
+        tblgiaphong.setSurrendersFocusOnKeystroke(true);
+        tblgiaphong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblgiaphongMouseClicked(evt);
+            }
+        });
+        jScrollPane8.setViewportView(tblgiaphong);
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel10.setText("Type room:");
+
+        jLabel39.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel39.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlykhachsan/HinhAnh/broom_64px.png"))); // NOI18N
+        jLabel39.setText("Clear");
+        jLabel39.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel39.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel39MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel39MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel39MouseExited(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel12.setText("Price:");
+
+        loaiphong1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        loaiphong1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loaiphong1ActionPerformed(evt);
+            }
+        });
+
+        gia2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        gia2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gia2ActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel13.setText("Type room:");
+
+        maloaiphong1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        maloaiphong1.setText("jLabel14");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addComponent(jLabel25)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13)))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(delete2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(loaiphong1, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                                .addComponent(gia2))
+                            .addComponent(maloaiphong1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 203, Short.MAX_VALUE)
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25))))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel25)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(100, 100, 100)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addComponent(maloaiphong1))
+                        .addGap(67, 67, 67)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(loaiphong1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))
+                        .addGap(48, 48, 48)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(gia2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
+                        .addGap(35, 35, 35)))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(delete2)
+                    .addComponent(jLabel29)
+                    .addComponent(jLabel28)
+                    .addComponent(jLabel39))
+                .addGap(32, 32, 32))
+        );
+
+        jPanel3.add(jPanel7, "card11");
+
+        jPanel11.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel12.setBackground(new java.awt.Color(153, 153, 255));
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 66, Short.MAX_VALUE)
+        );
+
+        jLabel30.setFont(new java.awt.Font("Rage Italic", 2, 36)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel30.setText("Romance hotel ");
+
+        jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlykhachsan/HinhAnh/update_64px.png"))); // NOI18N
+        jLabel32.setText("Update");
+        jLabel32.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel32.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel32MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel32MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel32MouseExited(evt);
+            }
+        });
+
+        tblchucvu_luong.setAutoCreateRowSorter(true);
+        tblchucvu_luong.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tblchucvu_luong.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Officials", "Salary"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tblchucvu_luong.setAlignmentX(2.0F);
+        tblchucvu_luong.setAlignmentY(2.0F);
+        tblchucvu_luong.setDoubleBuffered(true);
+        tblchucvu_luong.setDragEnabled(true);
+        tblchucvu_luong.setFillsViewportHeight(true);
+        tblchucvu_luong.setGridColor(new java.awt.Color(51, 0, 255));
+        tblchucvu_luong.setInheritsPopupMenu(true);
+        tblchucvu_luong.setName(""); // NOI18N
+        tblchucvu_luong.setRowHeight(30);
+        tblchucvu_luong.setSurrendersFocusOnKeystroke(true);
+        tblchucvu_luong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblchucvu_luongMouseClicked(evt);
+            }
+        });
+        jScrollPane11.setViewportView(tblchucvu_luong);
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel14.setText("Officials");
+
+        jLabel42.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlykhachsan/HinhAnh/broom_64px.png"))); // NOI18N
+        jLabel42.setText("Clear");
+        jLabel42.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel42.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel42MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel42MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel42MouseExited(evt);
+            }
+        });
+
+        jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel33.setText("Salary");
+
+        luong4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        luong4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                luong4ActionPerformed(evt);
+            }
+        });
+
+        chucvu4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        chucvu4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Director", "Receptionist", "Accountant" }));
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel33))
+                .addGap(110, 110, 110)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(luong4, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
+                    .addComponent(chucvu4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 231, Short.MAX_VALUE)
+                .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48))
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel30)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(183, 183, 183)
+                        .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(100, 100, 100)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel11Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(jLabel14))
+                            .addComponent(chucvu4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(85, 85, 85)
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel33)
+                            .addComponent(luong4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
+                        .addGap(35, 35, 35)))
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel32)
+                    .addComponent(jLabel42))
+                .addGap(32, 32, 32))
+        );
+
+        jPanel3.add(jPanel11, "card15");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1671,15 +2159,14 @@ public final class GiamdocGUI extends javax.swing.JFrame {
             nhanvienBUS nvBUS;
             try {
                 nvBUS = new nhanvienBUS();
-                if (nvBUS.themnhanvien(nv) == true) {
-                     int q = JOptionPane.showConfirmDialog(null, "Do you want to delete", "Xác nhận", JOptionPane.YES_NO_OPTION);
-                     if (q == 0){
-                    JOptionPane.showMessageDialog(null, "Add success", "Notice", JOptionPane.NO_OPTION);
-                     }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Add failed", "Notice", JOptionPane.NO_OPTION);
+                int q = JOptionPane.showConfirmDialog(null, "Do you want to add data", "Xác nhận", JOptionPane.YES_NO_OPTION);
+                if (q == 0) {
+                    if (nvBUS.themnhanvien(nv) == true) {
+                        JOptionPane.showMessageDialog(null, "Add success", "Notice", JOptionPane.NO_OPTION);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Add failed", "Notice", JOptionPane.NO_OPTION);
+                    }
                 }
-
             } catch (SQLException ex) {
                 Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
 
@@ -1729,10 +2216,10 @@ public final class GiamdocGUI extends javax.swing.JFrame {
         try {
             nvBUS = new nhanvienBUS();
             int q;
-            q = JOptionPane.showConfirmDialog(null, "Do you want to delete", "Confirm", JOptionPane.YES_NO_OPTION);
+            q = JOptionPane.showConfirmDialog(null, "Do you want to delete data", "Confirm", JOptionPane.YES_NO_OPTION);
             if (q == 0) {
-                if (nvBUS.xoanhanvien(nv) == true) {
-                    JOptionPane.showMessageDialog(null, "deleted successfully", "Notice", JOptionPane.NO_OPTION);
+                if (nvBUS.xoanhanvien(nv) == false) {
+                    JOptionPane.showMessageDialog(null, "Deleted successfully", "Notice", JOptionPane.NO_OPTION);
                 } else {
                     JOptionPane.showMessageDialog(null, "Delete failed", "Notice", JOptionPane.NO_OPTION);
                 }
@@ -1783,7 +2270,7 @@ public final class GiamdocGUI extends javax.swing.JFrame {
             if (i == 6) {
                 chucvu2.setSelectedItem(str);
             }
-           
+
         }
     }//GEN-LAST:event_tblnhanvienMouseClicked
 
@@ -1817,16 +2304,15 @@ public final class GiamdocGUI extends javax.swing.JFrame {
         nhanvienBUS nvBUS;
         try {
             nvBUS = new nhanvienBUS();
-            if (nvBUS.suanhanvien(nv) == true) {
-                nvBUS = new nhanvienBUS();
-                int q = JOptionPane.showConfirmDialog(null, "Do you want to edit the data", "Confirm", JOptionPane.YES_NO_OPTION);
-                if (q == 0) {
-                    if (nvBUS.suanhanvien(nv) == true) {
-                        JOptionPane.showMessageDialog(null, "Edit successful", "Notice", JOptionPane.NO_OPTION);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Edit failed", "Notice", JOptionPane.NO_OPTION);
-                    }
+
+            int q = JOptionPane.showConfirmDialog(null, "Do you want to edit the data", "Confirm", JOptionPane.YES_NO_OPTION);
+            if (q == 0) {
+                if (nvBUS.suanhanvien(nv) == true) {
+                    JOptionPane.showMessageDialog(null, "Edit successful", "Notice", JOptionPane.NO_OPTION);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Edit failed", "Notice", JOptionPane.NO_OPTION);
                 }
+
             }
 
         } catch (SQLException ex) {
@@ -1902,7 +2388,6 @@ public final class GiamdocGUI extends javax.swing.JFrame {
         String tendv = tendichvu1.getText();
         String dvt = donvitinh1.getSelectedItem().toString();
         String gia = gia1.getText();
-       
 
         if (tendv.isEmpty() || gia.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Incomplete information ", "Notice", JOptionPane.NO_OPTION);
@@ -1911,11 +2396,12 @@ public final class GiamdocGUI extends javax.swing.JFrame {
             dichvuBUS dvBUS;
             try {
                 dvBUS = new dichvuBUS();
-                if (dvBUS.themdichvu(dv) == true) {
-                     int q = JOptionPane.showConfirmDialog(null, "Do you want to edit the data", "Confirm", JOptionPane.YES_NO_OPTION);
-                     if( q==0){
-                    JOptionPane.showMessageDialog(null, "Add success", "Notice", JOptionPane.NO_OPTION);
-                     }
+                int q = JOptionPane.showConfirmDialog(null, "Do you want to add the data", "Confirm", JOptionPane.YES_NO_OPTION);
+                if (q == 0) {
+                    if (dvBUS.themdichvu(dv) == true) {
+
+                        JOptionPane.showMessageDialog(null, "Add success", "Notice", JOptionPane.NO_OPTION);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Add failed", "Notice", JOptionPane.NO_OPTION);
                 }
@@ -1949,7 +2435,6 @@ public final class GiamdocGUI extends javax.swing.JFrame {
         String tendv = tendichvu1.getText();
         String dvt = donvitinh1.getSelectedItem().toString();
         String gia = gia1.getText();
-  
 
         dichvuDTO dv = new dichvuDTO(madv, tendv, dvt, gia);
         dichvuBUS dvBUS;
@@ -1998,7 +2483,6 @@ public final class GiamdocGUI extends javax.swing.JFrame {
             if (i == 3) {
                 gia1.setText(str);
             }
-            
 
         }
 
@@ -2010,18 +2494,18 @@ public final class GiamdocGUI extends javax.swing.JFrame {
         String tendv = tendichvu1.getText();
         String dvt = donvitinh1.getSelectedItem().toString();
         String gia = gia1.getText();
-        
 
         dichvuDTO dv = new dichvuDTO(madv, tendv, dvt, gia);
         dichvuBUS dvBUS;
         try {
             dvBUS = new dichvuBUS();
-            if (dvBUS.suadichvu(dv) == true) {
-                int q = JOptionPane.showConfirmDialog(null, "Do you want to edit the data", "Confirm", JOptionPane.YES_NO_OPTION);
-                if(q == 0){
-                JOptionPane.showMessageDialog(null, "Edit successful", "Notice", JOptionPane.NO_OPTION);
+            int q = JOptionPane.showConfirmDialog(null, "Do you want to edit the data", "Confirm", JOptionPane.YES_NO_OPTION);
+            if (q == 0) {
+                if (dvBUS.suadichvu(dv) == true) {
+
+                    JOptionPane.showMessageDialog(null, "Edit successful", "Notice", JOptionPane.NO_OPTION);
                 }
-            }else {
+            } else {
                 JOptionPane.showMessageDialog(null, "Edit failed", "Notice", JOptionPane.NO_OPTION);
             }
 
@@ -2101,15 +2585,17 @@ public final class GiamdocGUI extends javax.swing.JFrame {
         phongBUS pBUS;
         try {
             pBUS = new phongBUS();
-            if (pBUS.themphong(p) == true) {
-                int q = JOptionPane.showConfirmDialog(null, "Do you want to add the data", "Confirm", JOptionPane.YES_NO_OPTION);
-                if (q == 0){
-                JOptionPane.showMessageDialog(null, "Add success", "Notice", JOptionPane.NO_OPTION);
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Add failed", "Notice", JOptionPane.NO_OPTION);
-            }
+            int q = JOptionPane.showConfirmDialog(null, "Do you want to add the data", "Confirm", JOptionPane.YES_NO_OPTION);
+            if (q == 0) {
+                if (pBUS.themphong(p) == true) {
 
+                    if (q == 0) {
+                        JOptionPane.showMessageDialog(null, "Add success", "Notice", JOptionPane.NO_OPTION);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Add failed", "Notice", JOptionPane.NO_OPTION);
+                }
+            }
         } catch (SQLException ex) {
             //Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
 
@@ -2134,7 +2620,7 @@ public final class GiamdocGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         String maphong = coderoom1.getText();
         String tenlp = roomtype1.getSelectedItem().toString();
-       
+
         phongDTO p = new phongDTO(maphong, tenlp);
         phongBUS pBUS;
         try {
@@ -2190,20 +2676,20 @@ public final class GiamdocGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         String maphong = coderoom1.getText();
         String loaiphong = roomtype1.getSelectedItem().toString();
-      
 
         phongDTO p = new phongDTO(maphong, loaiphong);
         phongBUS pBUS;
         try {
             pBUS = new phongBUS();
-             int d = JOptionPane.showConfirmDialog(null, "Do you want to update the data", "Confirm", JOptionPane.YES_NO_OPTION);
-            if (pBUS.suaphong(p) == true && d==0) 
-            {
-                JOptionPane.showMessageDialog(null, "Edit successful", "Notice", JOptionPane.NO_OPTION);
-            } else {
-                JOptionPane.showMessageDialog(null, "Edit failed", "Notice", JOptionPane.NO_OPTION);
+            int d = JOptionPane.showConfirmDialog(null, "Do you want to update the data", "Confirm", JOptionPane.YES_NO_OPTION);
+            if (d == 0) {
+                if (pBUS.suaphong(p) == true) {
+                    JOptionPane.showMessageDialog(null, "Edit successful", "Notice", JOptionPane.NO_OPTION);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Edit failed", "Notice", JOptionPane.NO_OPTION);
+                }
             }
-            
+
         } catch (SQLException ex) {
             //Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
 
@@ -2249,7 +2735,7 @@ public final class GiamdocGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         cl.show(jPanel3, "card10");
         try {
-           // autoID_chiso();
+            // autoID_chiso();
             load_table_chiso();
         } catch (SQLException ex) {
             Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -2264,29 +2750,25 @@ public final class GiamdocGUI extends javax.swing.JFrame {
 
     private void jLabel37MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel37MouseExited
         // TODO add your handling code here:
-         jLabel37.setBackground(new Color(62, 98, 161));
+        jLabel37.setBackground(new Color(62, 98, 161));
     }//GEN-LAST:event_jLabel37MouseExited
 
     private void jLabel34MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel34MouseExited
         // TODO add your handling code here:
-         jLabel34.setBackground(Color.WHITE);
+        jLabel34.setBackground(Color.WHITE);
     }//GEN-LAST:event_jLabel34MouseExited
 
     private void jLabel34MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel34MouseEntered
         // TODO add your handling code here:
-         jLabel34.setBackground(Color.LIGHT_GRAY);
+        jLabel34.setBackground(Color.LIGHT_GRAY);
         jLabel34.setOpaque(true);
-        
+
     }//GEN-LAST:event_jLabel34MouseEntered
 
     private void jLabel34MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel34MouseClicked
-        try {
-            // TODO add your handling code here:
-            load_table_chiso();
-        } catch (SQLException ex) {
-            Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
         chiso1.setText(null);
+        chiso2.setText(null);
     }//GEN-LAST:event_jLabel34MouseClicked
 
     private void tblchisoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblchisoMouseClicked
@@ -2298,10 +2780,10 @@ public final class GiamdocGUI extends javax.swing.JFrame {
         for (int i = 0; i < numcols; i++) {
             String str = (String) tblchiso.getValueAt(row, i);
             if (i == 0) {
-                tenchiso1.setSelectedItem(str);
+                chiso1.setText(str);
             }
             if (i == 1) {
-                chiso1.setText(str);
+                chiso2.setText(str);
             }
 
         }
@@ -2321,17 +2803,18 @@ public final class GiamdocGUI extends javax.swing.JFrame {
     private void jLabel27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel27MouseClicked
         // TODO add your handling code here:
         //String machiso = machiso1.getText();
-        String tenchiso = tenchiso1.getSelectedItem().toString();
-        String chiso = chiso1.getText();
+        String tenchiso = chiso1.getText();
+        String chiso = chiso2.getText();
 
         chisoDTO cs = new chisoDTO(tenchiso, chiso);
         chisoBUS csBUS;
         try {
             csBUS = new chisoBUS();
-            if (csBUS.suachiso(cs) == true) {
-                csBUS = new chisoBUS();
-                int q = JOptionPane.showConfirmDialog(null, "Do you want to edit the data", "Confirm", JOptionPane.YES_NO_OPTION);
-                if (q == 0) {
+            int q = JOptionPane.showConfirmDialog(null, "Do you want to edit the data", "Confirm", JOptionPane.YES_NO_OPTION);
+            if (q == 0) {
+                if (csBUS.suachiso(cs) == true) {
+                    csBUS = new chisoBUS();
+
                     if (csBUS.suachiso(cs) == true) {
                         JOptionPane.showMessageDialog(null, "Edit successful", "Notice", JOptionPane.NO_OPTION);
                     } else {
@@ -2368,20 +2851,22 @@ public final class GiamdocGUI extends javax.swing.JFrame {
 
     private void delete1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete1MouseClicked
         // TODO add your handling code here:
-       // String machiso = machiso1.getText();
-        String tenchiso = tenchiso1.getSelectedItem().toString();
-        String chiso = chiso1.getText();
+        // String machiso = machiso1.getText();
+        String tenchiso = chiso1.getText();
+        String chiso = chiso2.getText();
 
-        chisoDTO cs = new chisoDTO( tenchiso, chiso);
+        chisoDTO cs = new chisoDTO(tenchiso, chiso);
         chisoBUS csBUS;
         try {
             csBUS = new chisoBUS();
-            if (csBUS.xoachiso(cs) == true) {
-               int q = JOptionPane.showConfirmDialog(null, "Do you want to delete the data", "Notice", JOptionPane.NO_OPTION);
-               if (q  == 0 ){ JOptionPane.showMessageDialog(null, "deleted successfully", "Notice", JOptionPane.NO_OPTION);
-            } else {
-                JOptionPane.showMessageDialog(null, "Delete failed", "Notice", JOptionPane.NO_OPTION);
-            }
+            int q = JOptionPane.showConfirmDialog(null, "Do you want to delete the data", "Notice", JOptionPane.NO_OPTION);
+            if (q == 0) {
+                if (csBUS.xoachiso(cs) == true) {
+
+                    JOptionPane.showMessageDialog(null, "deleted successfully", "Notice", JOptionPane.NO_OPTION);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Delete failed", "Notice", JOptionPane.NO_OPTION);
+                }
             }
         } catch (SQLException ex) {
             //Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -2416,20 +2901,22 @@ public final class GiamdocGUI extends javax.swing.JFrame {
 
     private void jLabel20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel20MouseClicked
         // TODO add your handling code here:
-       // String machiso = machiso1.getText();
-        String tenchiso = tenchiso1.getSelectedItem().toString();
-        String chiso = chiso1.getText();
+        // String machiso = machiso1.getText();
+        String tenchiso = chiso1.getText();
+        String chiso = chiso2.getText();
 
-        chisoDTO cs = new chisoDTO( tenchiso, chiso);
+        chisoDTO cs = new chisoDTO(tenchiso, chiso);
         chisoBUS csBUS;
         try {
             csBUS = new chisoBUS();
-            if (csBUS.themchiso(cs) == true) {
-                  int q = JOptionPane.showConfirmDialog(null, "Do you want to add the data", "Notice", JOptionPane.NO_OPTION);
-               if (q == 0){ JOptionPane.showMessageDialog(null, "Add success", "Notice", JOptionPane.NO_OPTION);
-            } else {
-                JOptionPane.showMessageDialog(null, "Add failed", "Notice", JOptionPane.NO_OPTION);
-            }
+            int q = JOptionPane.showConfirmDialog(null, "Do you want to add the data", "Notice", JOptionPane.NO_OPTION);
+            if (q == 0) {
+                if (csBUS.themchiso(cs) == true) {
+
+                    JOptionPane.showMessageDialog(null, "Add success", "Notice", JOptionPane.NO_OPTION);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Add failed", "Notice", JOptionPane.NO_OPTION);
+                }
             }
         } catch (SQLException ex) {
             //Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -2442,11 +2929,11 @@ public final class GiamdocGUI extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        try {
-//            autoID_chiso();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+////        try {
+////            autoID_chiso();
+////        } catch (SQLException ex) {
+////            Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
+////        }
 
     }//GEN-LAST:event_jLabel20MouseClicked
 
@@ -2467,8 +2954,324 @@ public final class GiamdocGUI extends javax.swing.JFrame {
 
     private void jLabel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseExited
         // TODO add your handling code here:
-         jLabel4.setBackground(new Color(27, 186, 213));
+        jLabel4.setBackground(new Color(27, 186, 213));
     }//GEN-LAST:event_jLabel4MouseExited
+
+    private void chiso2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chiso2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chiso2ActionPerformed
+
+    private void jLabel28MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MouseClicked
+        // TODO add your handling code here:
+        String maloaiphong = maloaiphong1.getText();
+        String loaiphong = loaiphong1.getText();
+        String gia = gia2.getText();
+        if (maloaiphong.isEmpty() || loaiphong.isEmpty() || gia.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Incomplete information", "Notice", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            giaphongDTO gp = new giaphongDTO(maloaiphong, loaiphong, gia);
+
+            giaphongBUS gpBUS;
+            try {
+                gpBUS = new giaphongBUS();
+                int q = JOptionPane.showConfirmDialog(null, "Do you want to add data", "Xác nhận", JOptionPane.YES_NO_OPTION);
+                if (q == 0) {
+                    if (gpBUS.themloaiphong(gp) == true) {
+                        JOptionPane.showMessageDialog(null, "Add success", "Notice", JOptionPane.NO_OPTION);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Add failed", "Notice", JOptionPane.NO_OPTION);
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
+
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error messages", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            try {
+                load_table_giaphong();
+                autoID_loaiphong();
+            } catch (SQLException ex) {
+                Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+
+    }//GEN-LAST:event_jLabel28MouseClicked
+
+    private void jLabel28MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MouseEntered
+        // TODO add your handling code here:
+        jLabel28.setBackground(Color.LIGHT_GRAY);
+        jLabel28.setOpaque(true);
+    }//GEN-LAST:event_jLabel28MouseEntered
+
+    private void jLabel28MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MouseExited
+        // TODO add your handling code here:
+        jLabel28.setBackground(Color.WHITE);
+    }//GEN-LAST:event_jLabel28MouseExited
+
+    private void delete2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete2MouseClicked
+        // TODO add your handling code here:
+
+        String maloaiphong = maloaiphong1.getText();
+        giaphongDTO gp = new giaphongDTO(maloaiphong);
+        giaphongBUS gpBUS;
+
+        try {
+            gpBUS = new giaphongBUS();
+            int q = JOptionPane.showConfirmDialog(null, "Do you want to delete the data", "Notice", JOptionPane.NO_OPTION);
+            if (q == 0) {
+                if (gpBUS.xoaloaiphong(gp) == true) {
+
+                    JOptionPane.showMessageDialog(null, "deleted successfully", "Notice", JOptionPane.NO_OPTION);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Delete failed", "Notice", JOptionPane.NO_OPTION);
+                }
+            }
+        } catch (SQLException ex) {
+            //Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
+
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error messages", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            load_table_giaphong();
+        } catch (SQLException ex) {
+            Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }//GEN-LAST:event_delete2MouseClicked
+
+    private void delete2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete2MouseEntered
+        // TODO add your handling code here:
+        delete2.setBackground(Color.LIGHT_GRAY);
+        delete2.setOpaque(true);
+    }//GEN-LAST:event_delete2MouseEntered
+
+    private void delete2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete2MouseExited
+        // TODO add your handling code here:
+        delete2.setBackground(Color.WHITE);
+    }//GEN-LAST:event_delete2MouseExited
+
+    private void jLabel29MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29MouseClicked
+        // TODO add your handling code here:
+        String maloaiphong = maloaiphong1.getText();
+        String tenloaiphong = loaiphong1.getText();
+        String gia = gia2.getText();
+        giaphongDTO gp = new giaphongDTO(maloaiphong, tenloaiphong, gia);
+        giaphongBUS gpBUS;
+        try {
+            gpBUS = new giaphongBUS();
+            int q = JOptionPane.showConfirmDialog(null, "Do you want to edit the data", "Confirm", JOptionPane.YES_NO_OPTION);
+            if (q == 0) {
+                if (gpBUS.capnhatloaiphong(gp) == true) {
+                        JOptionPane.showMessageDialog(null, "Edit successful", "Notice", JOptionPane.NO_OPTION);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Edit failed", "Notice", JOptionPane.NO_OPTION);
+                    }
+                
+            }
+
+        } catch (SQLException ex) {
+            //Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
+
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error messages", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            load_table_giaphong();
+        } catch (SQLException ex) {
+            Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jLabel29MouseClicked
+
+    private void jLabel29MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29MouseEntered
+        // TODO add your handling code here:
+        jLabel29.setBackground(Color.LIGHT_GRAY);
+        jLabel29.setOpaque(true);
+    }//GEN-LAST:event_jLabel29MouseEntered
+
+    private void jLabel29MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29MouseExited
+        // TODO add your handling code here:
+        jLabel29.setBackground(Color.WHITE);
+    }//GEN-LAST:event_jLabel29MouseExited
+
+    private void tblgiaphongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblgiaphongMouseClicked
+        // TODO add your handling code here:
+        int row = tblgiaphong.rowAtPoint(evt.getPoint());
+        int col = tblgiaphong.columnAtPoint(evt.getPoint());
+        int numcols = tblgiaphong.getColumnCount();
+        // String a=""; 
+        for (int i = 0; i < numcols; i++) {
+            String str = (String) tblgiaphong.getValueAt(row, i);
+            if (i == 0) {
+                maloaiphong1.setText(str);
+            }
+            if (i == 1) {
+                loaiphong1.setText(str);
+            }
+            if (i == 2) {
+                gia2.setText(str);
+            }
+        }
+    }//GEN-LAST:event_tblgiaphongMouseClicked
+
+    private void jLabel39MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel39MouseClicked
+        try {
+            // TODO add your handling code here:
+            autoID_loaiphong();
+            loaiphong1.setText(null);
+            gia2.setText(null);
+        } catch (SQLException ex) {
+            Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jLabel39MouseClicked
+
+    private void jLabel39MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel39MouseEntered
+        // TODO add your handling code here:
+        jLabel39.setBackground(Color.LIGHT_GRAY);
+        jLabel39.setOpaque(true);
+    }//GEN-LAST:event_jLabel39MouseEntered
+
+    private void jLabel39MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel39MouseExited
+        // TODO add your handling code here:
+        jLabel39.setBackground(Color.WHITE);
+    }//GEN-LAST:event_jLabel39MouseExited
+
+    private void loaiphong1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loaiphong1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_loaiphong1ActionPerformed
+
+    private void gia2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gia2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gia2ActionPerformed
+
+    private void jLabel40MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel40MouseClicked
+        // TODO add your handling code here:
+        cl.show(jPanel3, "card11");
+        try {
+            load_table_giaphong();
+            autoID_loaiphong();
+        } catch (SQLException ex) {
+            Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jLabel40MouseClicked
+
+    private void jLabel40MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel40MouseEntered
+        // TODO add your handling code here:
+        jLabel40.setBackground(Color.LIGHT_GRAY);
+        jLabel40.setOpaque(true);
+    }//GEN-LAST:event_jLabel40MouseEntered
+
+    private void jLabel40MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel40MouseExited
+        // TODO add your handling code here:
+        jLabel40.setBackground(new Color(60, 104, 164));
+
+    }//GEN-LAST:event_jLabel40MouseExited
+
+    private void jLabel41MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel41MouseClicked
+        cl.show(jPanel3, "card15");
+        try {
+            // TODO add your handling code here:
+            load_table_chucvu_luong();
+        } catch (SQLException ex) {
+            Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jLabel41MouseClicked
+
+    private void jLabel41MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel41MouseEntered
+        // TODO add your handling code here:
+        jLabel41.setBackground(Color.LIGHT_GRAY);
+        jLabel41.setOpaque(true);
+    }//GEN-LAST:event_jLabel41MouseEntered
+
+    private void jLabel41MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel41MouseExited
+        // TODO add your handling code here:
+          jLabel41.setBackground(new Color(56, 113, 170));
+    }//GEN-LAST:event_jLabel41MouseExited
+
+    private void jLabel32MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel32MouseClicked
+        // TODO add your handling code here:
+        String chucvu5 = chucvu4.getSelectedItem().toString();
+        String luong5 = luong4.getText();
+        nhanvienBUS nvBUS;
+        
+        try {
+            nvBUS = new nhanvienBUS();
+            int q = JOptionPane.showConfirmDialog(null, "Do you want to edit the data", "Confirm", JOptionPane.YES_NO_OPTION);
+            if(q == 0){
+                if(nvBUS.capnhatluong(chucvu5,luong5) == true)
+                {
+                     JOptionPane.showMessageDialog(null, "Edit successful", "Notice", JOptionPane.NO_OPTION);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Edit failed", "Notice", JOptionPane.NO_OPTION);
+                }
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            load_table_chucvu_luong();
+        } catch (SQLException ex) {
+            Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+            
+        
+    }//GEN-LAST:event_jLabel32MouseClicked
+
+    private void jLabel32MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel32MouseEntered
+        // TODO add your handling code here:
+        jLabel32.setBackground(Color.LIGHT_GRAY);
+        jLabel32.setOpaque(true);
+    }//GEN-LAST:event_jLabel32MouseEntered
+
+    private void jLabel32MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel32MouseExited
+        // TODO add your handling code here:
+        jLabel32.setBackground(Color.WHITE);
+    }//GEN-LAST:event_jLabel32MouseExited
+
+    private void tblchucvu_luongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblchucvu_luongMouseClicked
+        // TODO add your handling code here:
+        int row = tblchucvu_luong.rowAtPoint(evt.getPoint());
+        int col = tblchucvu_luong.columnAtPoint(evt.getPoint());
+        int numcols = tblchucvu_luong.getColumnCount();
+        // String a=""; 
+        for (int i = 0; i < numcols; i++) {
+            String str = (String) tblchucvu_luong.getValueAt(row, i);
+            if (i == 0) {
+                chucvu4.setSelectedItem(str);
+            }
+            if (i == 1) {
+                luong4.setText(str);
+            }
+        }
+    }//GEN-LAST:event_tblchucvu_luongMouseClicked
+
+    private void jLabel42MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel42MouseClicked
+        // TODO add your handling code here:
+        luong4.setText(null);
+    }//GEN-LAST:event_jLabel42MouseClicked
+
+    private void jLabel42MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel42MouseEntered
+        // TODO add your handling code here:
+        jLabel42.setBackground(Color.LIGHT_GRAY);
+        jLabel42.setOpaque(true);
+    }//GEN-LAST:event_jLabel42MouseEntered
+
+    private void jLabel42MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel42MouseExited
+        // TODO add your handling code here:
+        jLabel42.setBackground(Color.WHITE);
+    }//GEN-LAST:event_jLabel42MouseExited
+
+    private void luong4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_luong4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_luong4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2497,19 +3300,27 @@ public final class GiamdocGUI extends javax.swing.JFrame {
     private javax.swing.JEditorPane address1;
     private javax.swing.JLabel addroom1;
     private javax.swing.JTextField chiso1;
+    private javax.swing.JTextField chiso2;
     private javax.swing.JComboBox<String> chucvu2;
+    private javax.swing.JComboBox<String> chucvu4;
     private javax.swing.JTextField cmnd1;
     private javax.swing.JLabel coderoom1;
     private javax.swing.JLabel delete;
     private javax.swing.JLabel delete1;
+    private javax.swing.JLabel delete2;
     private javax.swing.JLabel deletedichvu;
     private javax.swing.JLabel deleteroom1;
     private javax.swing.JComboBox<String> donvitinh1;
     private javax.swing.JTextField fullname1;
     private javax.swing.JTextField gia1;
+    private javax.swing.JTextField gia2;
     private javax.swing.JComboBox<String> gioitinh1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -2521,15 +3332,25 @@ public final class GiamdocGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
@@ -2541,6 +3362,9 @@ public final class GiamdocGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
@@ -2548,26 +3372,33 @@ public final class GiamdocGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JLabel lamtrangdichvu;
+    private javax.swing.JTextField loaiphong1;
+    private javax.swing.JTextField luong4;
     private javax.swing.JLabel madichvu1;
+    private javax.swing.JLabel maloaiphong1;
     private javax.swing.JLabel manv1;
     private javax.swing.JTextField phonenumber1;
     private javax.swing.JComboBox<String> roomtype1;
     private javax.swing.JLabel searchroom1;
     private javax.swing.JTable tblchiso;
+    private javax.swing.JTable tblchucvu_luong;
     private javax.swing.JTable tbldichvu;
+    private javax.swing.JTable tblgiaphong;
     private javax.swing.JTable tblnhanvien;
     private javax.swing.JTable tblroom;
-    private javax.swing.JComboBox<String> tenchiso1;
     private javax.swing.JTextField tendichvu1;
     private javax.swing.JTextField timkiemText;
     private javax.swing.JTextField timkiemText1;

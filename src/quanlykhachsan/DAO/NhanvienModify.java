@@ -37,7 +37,8 @@ public class NhanvienModify {
                     result.getString("sodt"),
                     result.getString("diachi"),
                     result.getString("cmnd"),
-                    result.getString("chucvu"));
+                    result.getString("chucvu"),
+                    result.getString("luong"));
             nhanvienList.add(nv);
         }
 
@@ -54,9 +55,9 @@ public class NhanvienModify {
 
     public boolean update(nhanvienDTO nv) throws SQLException {
 
-        String sql = "update nhanvien set hotennv = ?,gioitinh = ?,sodt = ?,diachi = ?,cmnd = ?,chucvu = ? where manv = ?";
-        String[] arr = {nv.getHotennv(), nv.getGioitinh(), nv.getSodt(), nv.getDiachi(), nv.getCmnd(), nv.getChucvu(), nv.getManv()};
-        int r = c.executeUpdate(sql, arr);
+        String sql = "{ call qlsv.update_cv(?,?,?,?,?,?,?)}";
+        String[] arr = {nv.getManv(), nv.getHotennv(), nv.getGioitinh(), nv.getSodt(), nv.getDiachi(), nv.getCmnd(), nv.getChucvu()};
+        int r = c.callProcedure(sql, arr);
         return r > 0;
 
     }
@@ -77,10 +78,34 @@ public class NhanvienModify {
         ResultSet r = c.executeQuery(sql);
         while (r.next()) {
             nhanvienDTO temp;
-            temp = new nhanvienDTO(r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5), r.getString(6), r.getString(7));
+            temp = new nhanvienDTO(r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5), r.getString(6), r.getString(7),r.getString(8));
             nvDTO.add(temp);
         }
         return nvDTO;
+
+    }
+     public List<nhanvienDTO> findOff_Sal() throws SQLException {
+
+        List<nhanvienDTO> nhanvienList = new ArrayList<>();
+
+        String sql = "select distinct chucvu, luong from nhanvien";
+
+        ResultSet result = c.executeQuery(sql);
+        while (result.next()) {
+            nhanvienDTO nv;
+            nv = new nhanvienDTO(
+                    result.getString("chucvu"),
+                    result.getString("luong"));
+            nhanvienList.add(nv);
+        }
+
+        return nhanvienList;
+    }
+      public boolean updateSalary(String chucvu, String luong) throws SQLException {
+
+        String sql = "update nhanvien set luong = '"+luong+"' where chucvu = '"+chucvu+"'";
+        int r = c.executeUpdate(sql);
+        return r > 0;
 
     }
 }

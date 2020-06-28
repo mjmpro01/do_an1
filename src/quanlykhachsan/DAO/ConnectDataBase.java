@@ -30,7 +30,9 @@ public final class ConnectDataBase {
     public ConnectDataBase() throws SQLException {
         connect();
     }
-
+     public void connect() throws SQLException {
+        con = DriverManager.getConnection(dbUML, Username, Password);
+    }
     @Override
     protected void finalize() throws Throwable {
         disconnect();
@@ -45,9 +47,7 @@ public final class ConnectDataBase {
         }
     }
     
-    public void connect() throws SQLException {
-        con = DriverManager.getConnection(dbUML, Username, Password);
-    }
+   
 
     public void disconnect() throws SQLException {
         con.close();
@@ -98,7 +98,15 @@ public final class ConnectDataBase {
     public void autoCommitFalse() throws SQLException{
         con.setAutoCommit(false);
     }
-     public void autoCommitTrue() throws SQLException{
+    public void autoCommitTrue() throws SQLException{
         con.setAutoCommit(true);
+    }
+    public void setTransactionIsolation1() throws SQLException
+    {
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+    }
+     public void setTransactionIsolation2() throws SQLException
+    {
+        con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
     }
 }

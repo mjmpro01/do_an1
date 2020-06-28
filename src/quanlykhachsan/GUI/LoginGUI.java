@@ -9,6 +9,7 @@ import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.Window;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -29,7 +30,7 @@ public class LoginGUI extends javax.swing.JFrame {
      */
     static String user;
     ConnectDataBase c;
-   
+
     public LoginGUI() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -309,10 +310,15 @@ public class LoginGUI extends javax.swing.JFrame {
         String pass = password.getText();
         if (username.getText().isEmpty() || password.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "You need to enter the full information", "Notice", JOptionPane.NO_OPTION);
+        } else if (username.getText().contains("admin") && password.getText().contains("admin") || username.getText().contains("admin1") && password.getText().contains("admin1")) {
+            SelectOfficials se = new SelectOfficials();
+            se.setVisible(true);
+            this.dispose();
+                  
         } else {
 
             try {
-                
+
                 taikhoanDTO tk = new taikhoanDTO(user, pass);
                 taikhoanBUS tkBUS = new taikhoanBUS();
                 if (!tkBUS.dangnhap(tk)) {
@@ -320,21 +326,16 @@ public class LoginGUI extends javax.swing.JFrame {
                 } else {
                     taikhoanDTO tk1 = tkBUS.kiemtraphanquyen(user);
                     String chucvu1 = tk1.getChucvu();
-                    if (chucvu1.contains("Director")) {
-                        GiamdocGUI login1;
-                        login1 = new GiamdocGUI();
-                        login1.setVisible(true);
-                        this.dispose();
 
-                    } else if (chucvu1.contains("Receptionist")) {
-                        tieptanGUI login2 = null;
+                    if (chucvu1.contains("Receptionist")) {
+                        tieptanGUI login2;
                         try {
                             login2 = new tieptanGUI();
+                            login2.setVisible(true);
+                            this.dispose();
                         } catch (ParseException ex) {
                             Logger.getLogger(LoginGUI.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        login2.setVisible(true);
-                        this.dispose();
 
                     } else if (chucvu1.contains("Accountant")) {
                         ketoanGUI login3 = new ketoanGUI();
@@ -365,14 +366,14 @@ public class LoginGUI extends javax.swing.JFrame {
 
     private void loginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_loginKeyPressed
         // TODO add your handling code here:
-         user = username.getText();
+        user = username.getText();
         String pass = password.getText();
         if (username.getText().isEmpty() || password.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "You need to enter the full information", "Notice", JOptionPane.NO_OPTION);
         } else {
 
             try {
-                
+
                 taikhoanDTO tk = new taikhoanDTO(user, pass);
                 taikhoanBUS tkBUS = new taikhoanBUS();
                 if (!tkBUS.dangnhap(tk)) {
@@ -387,14 +388,14 @@ public class LoginGUI extends javax.swing.JFrame {
                         this.dispose();
 
                     } else if (chucvu1.contains("Receptionist")) {
-                        tieptanGUI login2 = null;
+                        tieptanGUI login2;
                         try {
                             login2 = new tieptanGUI();
+                            login2.setVisible(true);
+                            this.dispose();
                         } catch (ParseException ex) {
                             Logger.getLogger(LoginGUI.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        login2.setVisible(true);
-                        this.dispose();
 
                     } else if (chucvu1.contains("Accountant")) {
                         ketoanGUI login3 = new ketoanGUI();

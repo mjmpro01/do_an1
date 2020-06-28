@@ -3,9 +3,39 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/GUI/ketoanGUI.java</file>
-            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/GUI/GiamdocGUI.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/BUS/giaphongBUS.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/Main/QuanLyKhachSan.java</file>
             <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/GUI/tieptanGUI.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/DAO/taikhoanModify.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/DAO/chisoModify.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/DAO/ConnectDataBase.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/GUI/dichvuGUI.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/DAO/hoadonModify.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/DAO/datphongModify.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/DTO/chisoDTO.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/DTO/giaphongDTO.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/BUS/chisoBUS.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/DAO/iReportDAO.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/BUS/hoadonBUS.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/DTO/taikhoanDTO.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/GUI/ketoanGUI.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/DAO/NhanvienModify.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/DTO/hoadonDTO.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/DAO/dichvuModify.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/GUI/thongkedoanhthu.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/DTO/nhanvienDTO.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/DAO/thuephongModify.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/GUI/thangnamGUI.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/BUS/nhanvienBUS.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/GUI/GiamdocGUI.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/GUI/Bookroom.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/DTO/phongDTO.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/DAO/phieudatdvModify.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/BUS/phongBUS.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/DAO/thongkeDAO.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/GUI/SelectOfficials.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/DAO/giaphongModify.java</file>
+            <file>file:/C:/Users/Duy%20Minh/Desktop/do_an-master/src/quanlykhachsan/GUI/LoginGUI.java</file>
         </group>
     </open-files>
 </project-private>

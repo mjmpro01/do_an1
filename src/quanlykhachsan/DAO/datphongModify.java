@@ -28,7 +28,7 @@ public class datphongModify {
 
         List<datphongDTO> datphongList = new ArrayList<>();
 
-        String sql = "select madp, maphong , to_char(ngaythue,'dd-MM-yyyy') , to_char(ngaydi,'dd-MM-yyyy') from datphong  ";
+        String sql = "select madp, maphong , to_char(ngaythue,'dd-MM-yyyy') , to_char(ngaydi,'dd-MM-yyyy') from phieudatphong where trangthai = 0  ";
 
         ResultSet result = c.executeQuery(sql);
         while (result.next()) {
@@ -58,14 +58,14 @@ public class datphongModify {
 
     public boolean delete(String madp) throws SQLException {
 
-        String sql = "delete from datphong where madp = '" + madp + "'";
+        String sql = "delete from phieudatphong where madp = '" + madp + "'";
         int r = c.executeUpdate(sql);
         return r > 0;
     }
 
     public ArrayList<datphongDTO> searchcoderoom(String coderoom) throws SQLException {
         ArrayList<datphongDTO> dpDTO = new ArrayList<>();
-        String sql = "select madp, maphong , to_char(ngaythue,'dd-MM-yyyy') , to_char(ngaydi,'dd-MM-yyyy') from datphong  where maphong like '% " + coderoom + "%'";
+        String sql = "select madp, maphong , to_char(ngaythue,'dd-MM-yyyy') , to_char(ngaydi,'dd-MM-yyyy') from phieudatphong  where maphong like '% " + coderoom + "%'";
         ResultSet r = c.executeQuery(sql);
         if (r.next()) {
             datphongDTO temp;
@@ -82,12 +82,12 @@ public class datphongModify {
                 + "from    phong p join loaiphong lp on p.maloaiphong = lp.maloaiphong \n"
                 + "where   lp.tenloaiphong = '" + typeroom + "' and p.maphong \n"
                 + "        not in  (select  distinct pt.maphong\n"
-                + "                from    datphong pt\n"
+                + "                from    phieudatphong pt\n"
                 + "                where   trangthai = 0 and \n"
-                + "                        ((to_date('" + checkin + "','dd-mm-yyyy') between pt.ngaythue and pt.ngaydi)\n"
-                + "                        or (to_date('" + checkout + "','dd-mm-yyyy') between pt.ngaythue and pt.ngaydi)\n"
-                + "                        or (pt.ngaythue between to_date('" + checkin + "','dd-mm-yyyy') and to_date('" + checkout + "','dd-mm-yyyy'))\n"
-                + "                        or (pt.ngaydi between to_date('" + checkin + "','dd-mm-yyyy') and to_date('" + checkout + "','dd-mm-yyyy'))))\n"
+                + "                        ((to_date('" + checkin + "','dd-MM-yyyy') between pt.ngaythue and pt.ngaydi)\n"
+                + "                        or (to_date('" + checkout + "','dd-MM-yyyy') between pt.ngaythue and pt.ngaydi)\n"
+                + "                        or (pt.ngaythue between to_date('" + checkin + "','dd-MM-yyyy') and to_date('" + checkout + "','dd-MM-yyyy'))\n"
+                + "                        or (pt.ngaydi between to_date('" + checkin + "','dd-MM-yyyy') and to_date('" + checkout + "','dd-MM-yyyy'))))\n"
                 + "order by sp";
         ResultSet r = c.executeQuery(sql);
         while (r.next()) {
@@ -100,7 +100,7 @@ public class datphongModify {
     }
 
     public datphongDTO showCusroom(String madp) throws SQLException {
-        String sql = "select * from khachhang where makh in (select makh from datphong where madp = '" + madp + "')";
+        String sql = "select * from khachhang where makh in (select makh from phieudatphong where madp = '" + madp + "')";
         ResultSet r = c.executeQuery(sql);
         if (r.next()) {
             datphongDTO temp;

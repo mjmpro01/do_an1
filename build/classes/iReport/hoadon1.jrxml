@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="hoadon1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fec1821b-5675-4d64-bf16-43489fc032d3">
-	<property name="ireport.zoom" value="1.6105100000000019"/>
+	<property name="ireport.zoom" value="1.7715610000000022"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="48"/>
 	<parameter name="MAPHONG" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -73,18 +73,12 @@ FETCH FIRST 1 ROW ONLY]]>
 				</textElement>
 				<text><![CDATA[Invoice date:]]></text>
 			</staticText>
-			<componentElement>
-				<reportElement x="344" y="67" width="200" height="50" uuid="50bd4d56-96c0-467d-90e8-a8095321b762"/>
-				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39 (Extended)" drawText="false" checksumRequired="false">
-					<jr:codeExpression><![CDATA["1234"]]></jr:codeExpression>
-				</jr:barbecue>
-			</componentElement>
 		</band>
 	</title>
 	<columnHeader>
 		<band height="27">
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="1" width="555" height="20" backcolor="#FF6600" uuid="1e3a4599-8781-4702-aa70-b78bdbecf6d2"/>
+				<reportElement mode="Opaque" x="-3" y="-5" width="555" height="20" backcolor="#FF6600" uuid="1e3a4599-8781-4702-aa70-b78bdbecf6d2"/>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>

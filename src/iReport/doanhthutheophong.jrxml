@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="doanhthutheophong" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3cbab3e6-bcdb-4e0d-8987-4b4467bdfb2c">
+	<property name="ireport.zoom" value="1.2100000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="thang" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nam" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT SS.TENLOAIPHONG, S.MAPHONG, S.TONG
+    FROM
+        (SELECT DP.MAPHONG, SUM(HD.TONGHOADON) TONG
+        FROM PHIEUDATPHONG DP JOIN HOADON HD ON DP.MADP = HD.MADP
+        WHERE extract(month from ngayhd) = $P{thang} and extract (year from ngayhd) = $P{nam}
+        GROUP BY MAPHONG) S
+    LEFT JOIN
+        (SELECT PH.MAPHONG, LP.TENLOAIPHONG
+        FROM PHONG PH JOIN LOAIPHONG LP ON LP.MALOAIPHONG = PH.MALOAIPHONG) SS
+    ON SS.MAPHONG = S.MAPHONG
+    ORDER BY TENLOAIPHONG, MAPHONG]]>
+	</queryString>
+	<field name="TENLOAIPHONG" class="java.lang.String"/>
+	<field name="MAPHONG" class="java.lang.String"/>
+	<field name="TONG" class="java.math.BigDecimal"/>
+	<group name="tenloaiphong">
+		<groupExpression><![CDATA[$F{TENLOAIPHONG}]]></groupExpression>
+		<groupHeader>
+			<band height="36">
+				<rectangle>
+					<reportElement mode="Opaque" x="0" y="12" width="36" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="a69955cc-1e71-4360-a8d2-44880532e8f3"/>
+				</rectangle>
+				<textField>
+					<reportElement x="47" y="16" width="100" height="20" uuid="a5e54c2c-90e3-4177-9819-a9627e0a1e63"/>
+					<textFieldExpression><![CDATA[$F{TENLOAIPHONG}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="37"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement x="275" y="0" width="300" height="64" uuid="bf496656-241d-481c-ac07-a8fc9686cb79"/>
+				<imageExpression><![CDATA["leaf_banner_gray.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="64da8792-e785-4b44-9da8-7d54613584a2"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Leaf Gray Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="117" y="46" width="157" height="22" uuid="0e640176-2f1b-48c7-978b-efed28bfce66"/>
+				<text><![CDATA[Leaf Gray SubTitle]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="47" y="21" width="100" height="15" uuid="a4d6d52a-2905-4e30-8693-3a68c200d780"/>
+				<text><![CDATA[Code room]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="0a536414-33d6-4575-a68b-b15dcfbe0365"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="368" y="21" width="100" height="15" uuid="1f23ed1e-5ec3-4398-b280-c5f2614d4497"/>
+				<text><![CDATA[Price]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="67" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="585759b0-737f-4aff-ac52-dbc6345d3ee2"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="47" y="20" width="100" height="15" uuid="de8fed83-b1b1-4f99-8cda-482651546b4f"/>
+				<textFieldExpression><![CDATA[$F{MAPHONG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="368" y="20" width="100" height="20" uuid="14600eea-0eb9-4e00-98a2-bd691ce310a0"/>
+				<textFieldExpression><![CDATA[$F{TONG}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="44" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="fd6c4d92-4aa9-4066-abd3-0dc5ff467436"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="bed39f82-acc2-4806-8414-ba9f8025990e"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="3696923e-7d7d-41b5-8c6d-027edfa7dee1"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="55298a5f-9446-46ed-a934-4a4286328f7a"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

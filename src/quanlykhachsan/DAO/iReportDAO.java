@@ -44,7 +44,7 @@ public class iReportDAO {
         HashMap hasmap = new HashMap();
         hasmap.put("maphong", maphong);
         
-        String dir = "C:\\\\Users\\\\Duy Minh\\\\Desktop\\\\do_an-master\\\\src\\\\iReport\\\\hoadon3.jrxml";
+        String dir = "C:\\\\Users\\\\Duy Minh\\\\Desktop\\\\do_an-master\\\\src\\\\iReport\\\\report3.jrxml";
         JasperDesign jd = JRXmlLoader.load(dir);
         JasperReport jr = JasperCompileManager.compileReport(dir);
         JasperPrint jp;
@@ -67,6 +67,7 @@ public class iReportDAO {
       public void doanhso(String thang1, String nam1) throws JRException{
         
         
+          
         int thang = Integer.valueOf(thang1);
         int nam = Integer.valueOf(nam1);
         HashMap hasmap = new HashMap();

@@ -60,4 +60,16 @@ public class nhanvienBUS {
     public boolean themnhanvien(nhanvienDTO nvDTO) throws SQLException{
         return nv.insert(nvDTO);
     }
+     public void showchucvu_luong(DefaultTableModel tb) throws SQLException {
+
+        List<nhanvienDTO> nhanvienList = nv.findOff_Sal();//        DefaultTableModel tb = new DefaultTableModel();
+        tb.setRowCount(0);
+        nhanvienList.forEach((nhanvien) -> {
+            tb.addRow(nhanvien.to_array1());
+            System.out.println(Arrays.toString(nhanvien.to_array1()));
+        });
+    }
+     public boolean capnhatluong(String chucvuString,String luongString) throws SQLException{
+         return nv.updateSalary(chucvuString,luongString);
+     }
 }

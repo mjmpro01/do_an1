@@ -29,7 +29,7 @@ public class phieudatdvModify {
   
      public ArrayList<phieudatdvDTO> showSDDV() throws SQLException {
         ArrayList<phieudatdvDTO> sddvDTO = new ArrayList<>();
-        String sql = "select b.masddv, a.maphong, c.tendv,to_date(b.ngaysd,'dd-MM-yyyy'), b.thanhtien from datphong a, sudungdichvu b, dichvu c  where b.madp = a.madp and b.madv = c.madv";
+        String sql = "select b.masddv, a.maphong, c.tendv,to_date(b.ngaysd,'dd-MM-yyyy'), b.thanhtien from phieudatphong a, sudungdichvu b, dichvu c  where b.madp = a.madp and b.madv = c.madv and a.trangthai = 0"; 
         ResultSet r = c.executeQuery(sql);
         while (r.next()) {
             phieudatdvDTO temp;

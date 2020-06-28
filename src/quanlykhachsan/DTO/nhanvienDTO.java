@@ -12,7 +12,7 @@ package quanlykhachsan.DTO;
 public class nhanvienDTO {
 
     String manv;
-    String hotennv, gioitinh, sodt, diachi, trangthai, chucvu;
+    String hotennv, gioitinh, sodt, diachi, trangthai, chucvu,luong;
     String cmnd;
 
     nhanvienDTO() {
@@ -76,7 +76,15 @@ public class nhanvienDTO {
         this.cmnd = cmnd;
     }
 
-    public nhanvienDTO(String manv, String hotennv, String gioitinh, String sodt, String diachi, String cmnd, String chucvu) {
+    public String getLuong() {
+        return luong;
+    }
+
+    public void setLuong(String luong) {
+        this.luong = luong;
+    }
+
+    public nhanvienDTO(String manv, String hotennv, String gioitinh, String sodt, String diachi, String cmnd, String chucvu, String luong) {
         this.manv = manv;
         this.hotennv = hotennv;
         this.gioitinh = gioitinh;
@@ -84,9 +92,28 @@ public class nhanvienDTO {
         this.diachi = diachi;
         this.chucvu = chucvu;
         this.cmnd = cmnd;
+        this.luong = luong;
+    }
+public nhanvienDTO(String manv, String hotennv, String gioitinh, String sodt, String diachi, String cmnd, String chucvu) {
+        this.manv = manv;
+        this.hotennv = hotennv;
+        this.gioitinh = gioitinh;
+        this.sodt = sodt;
+        this.diachi = diachi;
+        this.chucvu = chucvu;
+        this.cmnd = cmnd;
+    
+    }
+
+    public nhanvienDTO(String chucvu, String luong) {
+        this.chucvu = chucvu;
+        this.luong = luong;
     }
 
     public String[] to_array() {
-        return new String[]{ manv, hotennv,  gioitinh,  sodt,  diachi, cmnd, chucvu};
+        return new String[]{ manv, hotennv,  gioitinh,  sodt,  diachi, cmnd, chucvu,luong};
+    }
+    public String[] to_array1(){
+        return new String[]{chucvu,luong };
     }
 }

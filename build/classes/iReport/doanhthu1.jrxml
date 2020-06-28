@@ -109,7 +109,7 @@ where extract(month from ngayhd) =$P{thang} and extract (year from ngayhd) =$P{n
 			</line>
 			<textField>
 				<reportElement style="Detail" x="185" y="0" width="185" height="15" uuid="8d82c863-e17f-41e9-a01c-5ed64326d166"/>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Left">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{HOADON_NGAYHD}]]></textFieldExpression>

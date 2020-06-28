@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6979badb-e746-41f6-bdff-5a0a8fcd7037">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="257"/>
+	<parameter name="maphong" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT *
+FROM
+    (select MADP, MAKH, MAPHONG, (case
+                            when NGAYDI = NGAYTHUE then 1
+                            else round((MONTHS_BETWEEN(NGAYDI, NGAYTHUE))*31)
+                        end ) SONGAYTHUE
+    from PHIEUDATPHONG
+    where TRANGTHAI = 1 and MAPHONG = $P{maphong}
+    ORDER BY MADP DESC
+    FETCH FIRST 1 ROW ONLY) DP
+JOIN
+ KHACHHANG KH ON KH.MAKH = DP.MAKH
+JOIN
+LOAIKHACH HS ON HS.TENLOAIKHACH = KH.LOAIKHACH
+JOIN
+   HOADON HD ON HD.MADP =DP.MADP
+left JOIN
+    (select  sd.MADP, dv.gia giadv, dv.tendv, sum(sd.soluongsd) sl,SUM(THANHTIEN) TT
+    from DICHVU dv LEFT join SUDUNGDICHVU sd on dv.MADV = sd.MADV
+    group by  SD.MADP, dv.tendv, dv.gia
+	ORDER BY SD.MADP, dv.tendv, dv.gia ) sddv ON SDdv.MADP = DP.MADP
+left join phong ph on ph.maphong = dp.maphong
+left join loaiphong lp on lp.maloaiphong = ph.maloaiphong
+
+]]>
+	</queryString>
+	<field name="MADP" class="java.lang.String"/>
+	<field name="MAKH" class="java.lang.String"/>
+	<field name="MAPHONG" class="java.lang.String"/>
+	<field name="SONGAYTHUE" class="java.math.BigDecimal"/>
+	<field name="HOTEN" class="java.lang.String"/>
+	<field name="NGAYSINH" class="java.sql.Timestamp"/>
+	<field name="GIOITINH" class="java.lang.String"/>
+	<field name="CMND" class="java.math.BigDecimal"/>
+	<field name="SODT" class="java.math.BigDecimal"/>
+	<field name="DIACHI" class="java.lang.String"/>
+	<field name="LOAIKHACH" class="java.lang.String"/>
+	<field name="TENLOAIKHACH" class="java.lang.String"/>
+	<field name="CHISO" class="java.lang.Double"/>
+	<field name="MAHD" class="java.lang.String"/>
+	<field name="NGAYHD" class="java.sql.Timestamp"/>
+	<field name="TONGHOADON" class="java.math.BigDecimal"/>
+	<field name="TIENPHONG" class="java.math.BigDecimal"/>
+	<field name="TIENDV" class="java.math.BigDecimal"/>
+	<field name="GIADV" class="java.math.BigDecimal"/>
+	<field name="TENDV" class="java.lang.String"/>
+	<field name="SL" class="java.math.BigDecimal"/>
+	<field name="TT" class="java.math.BigDecimal"/>
+	<field name="MALOAIPHONG" class="java.lang.String"/>
+	<field name="TENLOAIPHONG" class="java.lang.String"/>
+	<field name="GIA" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="180" splitType="Stretch">
+			<staticText>
+				<reportElement x="333" y="0" width="131" height="37" uuid="fbf9f54c-0ff7-4ece-92ac-089e1d6a6530"/>
+				<textElement>
+					<font fontName="Arial" size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="227" y="37" width="308" height="45" uuid="5e1a7297-2af6-4caf-a454-e6d3fe121fea"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Lucida Fax" size="24" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Romance Hotel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="72" width="135" height="107" uuid="69d2014e-15f7-45a8-850c-7d0944def754"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[721 Nguyễn Huệ,             Khu phố 6,            thị xã Đồng Xoài ,          tỉnh Bình Phước,             Việt Nam]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="255" y="139" width="93" height="20" uuid="7ee054a6-60d6-40b1-8120-9e1892f8b552"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice date:]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="347" y="139" width="138" height="20" uuid="b358ebb0-09ed-427b-b674-9f7922b3244a"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="200" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="90" width="100" height="19" uuid="96301af6-772c-4416-b385-6f0983e199a4"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Code room]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="100" height="20" uuid="f7656ef9-6195-4804-95f1-e9019249cb4f"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Code Invoice]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="155" y="89" width="100" height="20" uuid="3c627478-18a9-41fd-8ef7-7feade1fffd5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MAPHONG}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="53" width="135" height="20" uuid="f8859506-a377-47ca-a43a-72e7d25fbe15"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Customer's name ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="155" y="53" width="100" height="20" uuid="45dbf3fc-8701-4e51-a037-c57249904f9e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{HOTEN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="155" y="20" width="100" height="20" uuid="bcc01e06-65f5-44ab-acee-cd806aebbcda"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MAHD}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="158" width="555" height="20" backcolor="#3333FF" uuid="b39e79bb-f3fb-4c38-8978-54d4fd8a8b86"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="385" y="158" width="170" height="20" uuid="cc2febff-5d7f-4b83-b0f6-cdb6c069e8ee"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Line total ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="158" width="124" height="20" uuid="96bf03df-0048-4e02-98ee-302035ac1099"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="124" y="158" width="133" height="20" uuid="1b72406a-f28d-4eae-add1-225e7e032981"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Unit price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="183" y="128" width="185" height="20" forecolor="#FF6633" uuid="43cbc111-2e3c-47f6-b545-b419060482cb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice Details]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="255" y="158" width="130" height="20" uuid="be9d0705-43aa-4aff-8e94-c5cc91179525"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="311" height="1" uuid="b25bb73b-c8c1-40d1-b650-edf3d51e0239"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#99CCFF" uuid="bcb334cd-6794-41b3-a83d-ad6f98210e73"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="0" width="124" height="20" uuid="6c86db22-c5a3-4bd7-8686-d019cc05479a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TENLOAIPHONG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="124" y="0" width="82" height="20" uuid="a28a0610-ca1e-4d17-8994-cd873ce342a6"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{GIA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="257" y="0" width="128" height="20" uuid="91c4b45a-33b2-498b-b1a4-21c750f0eaf1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SONGAYTHUE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="385" y="0" width="100" height="20" uuid="f209e8d4-7b5c-44f9-b59f-a42ee8b60a5b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TIENPHONG}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="485" y="0" width="38" height="20" uuid="12f2b82e-721e-4483-80b5-fbb54fd62866"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  VND]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="206" y="0" width="49" height="20" uuid="c48dd6e3-11d3-4512-8c9a-c84e38ea5d5b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  VND]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#99CCFF" uuid="9f3c6827-573b-4034-b30c-8f12cad5ff60"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="0" width="124" height="20" uuid="45e16885-3511-4860-97ba-00c9e221190a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TENDV}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="123" y="0" width="80" height="20" uuid="33d8414c-dcb7-420a-b515-1d359539e45d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{GIADV}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="203" y="0" width="52" height="20" uuid="361a8528-862a-4898-bfdb-1bb8267bd738"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  VND]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="258" y="0" width="127" height="20" uuid="41eda8b9-0c6d-4aaa-b822-d805d376406f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="385" y="0" width="100" height="20" uuid="bdd9e92c-6c7c-40c5-bf46-5d05dd2bfc83"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="485" y="0" width="38" height="20" uuid="0a4d0eef-5b74-4167-aa66-71cc5d5bd9a4"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  VND]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="59" splitType="Stretch">
+			<textField>
+				<reportElement x="410" y="39" width="54" height="20" forecolor="#FF3333" uuid="194dfb5c-a104-48ef-af88-da58ecee6063"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TONGHOADON}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="8" width="75" height="20" forecolor="#FF9966" uuid="3b0b9b48-1870-4590-8290-d4a00055c1f5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CHISO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="362" y="8" width="48" height="20" forecolor="#FF9966" uuid="8ebaa9ef-b703-443b-a786-d5d3e5e5521a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Index:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="362" y="39" width="48" height="20" forecolor="#FF0000" uuid="81d7e22c-d141-41d9-aab1-fda01b44ae47"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="464" y="39" width="46" height="20" forecolor="#FF3333" uuid="1d76ab20-f3dd-4813-850b-e3c7a0e03034"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  VND]]></text>
+			</staticText>
+			<line>
+				<reportElement x="155" y="7" width="355" height="1" uuid="70e069b0-c2b0-4f35-ab45-42588f44a1f0"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

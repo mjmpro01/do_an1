@@ -33,7 +33,7 @@ public class thuephongModify {
 
         List<thuephongDTO> thuephongList = new ArrayList<>();
 
-        String sql = "select a.maptp, b.maphong , to_char(a.ngaythue,'dd-MM-yyyy') , to_char(b.ngaydi,'dd-MM-yyyy') from phieuthuephong a, cttp b where b.maptp = a.maptp and b.maphong like '%" + coderoom + "%'";
+        String sql = "select a.maptp, b.maphong , to_char(a.ngaythue,'dd-MM-yyyy') , to_char(b.ngaydi,'dd-MM-yyyy') from phieuthuephong a, cttp b where b.maptp = a.maptp and b.maphong like '%" + coderoom + "%'and a.trangthai = 0";
 
         ResultSet result = c.executeQuery(sql);
         while (result.next()) {

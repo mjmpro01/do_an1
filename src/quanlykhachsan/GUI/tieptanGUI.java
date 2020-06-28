@@ -42,9 +42,10 @@ import static quanlykhachsan.GUI.dichvuGUI.gia1;
 public final class tieptanGUI extends javax.swing.JFrame {
 
     CardLayout cl;
-    Bookroom br = new Bookroom();
+    Bookroom br;
     thuephongGUI tp = new thuephongGUI();
-    dichvuGUI dv = new dichvuGUI();
+    dichvuGUI dv ;
+    static String checkinString, checkoutString;
 
     /**
      * Creates new form nhanvien
@@ -130,9 +131,7 @@ public final class tieptanGUI extends javax.swing.JFrame {
         jScrollPane13 = new javax.swing.JScrollPane();
         tblbookroom = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
-        coderoom3 = new javax.swing.JTextField();
-        timkiemnv = new javax.swing.JLabel();
-        timkiemnv2 = new javax.swing.JLabel();
+        timkiemroom = new javax.swing.JLabel();
         jLabel55 = new javax.swing.JLabel();
         jLabel56 = new javax.swing.JLabel();
         jLabel57 = new javax.swing.JLabel();
@@ -148,8 +147,6 @@ public final class tieptanGUI extends javax.swing.JFrame {
         jScrollPane16 = new javax.swing.JScrollPane();
         tblsddv = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
-        timkiemnv5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
         hoadon = new javax.swing.JPanel();
         jLabel39 = new javax.swing.JLabel();
         jPanel19 = new javax.swing.JPanel();
@@ -160,10 +157,11 @@ public final class tieptanGUI extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         maphong5 = new javax.swing.JTextField();
-        timkiemnv7 = new javax.swing.JLabel();
-        timkiemnv8 = new javax.swing.JLabel();
+        inhoadon = new javax.swing.JLabel();
+        timkiemphong3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         kGradientPanel1.setkEndColor(new java.awt.Color(0, 255, 255));
         kGradientPanel1.setkStartColor(new java.awt.Color(102, 0, 102));
@@ -424,59 +422,20 @@ public final class tieptanGUI extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Reservation Details");
 
-        coderoom3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        coderoom3.setToolTipText("Code room");
-        coderoom3.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        coderoom3.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        coderoom3.setName("Customer's fullname"); // NOI18N
-        coderoom3.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                coderoom3FocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                coderoom3FocusLost(evt);
-            }
-        });
-        coderoom3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                coderoom3ActionPerformed(evt);
-            }
-        });
-        coderoom3.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                coderoom3KeyPressed(evt);
-            }
-        });
-
-        timkiemnv.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        timkiemnv.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        timkiemnv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlykhachsan/HinhAnh/search_48px (2).png"))); // NOI18N
-        timkiemnv.setText("Search room");
-        timkiemnv.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        timkiemnv.addMouseListener(new java.awt.event.MouseAdapter() {
+        timkiemroom.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        timkiemroom.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        timkiemroom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlykhachsan/HinhAnh/search_48px (2).png"))); // NOI18N
+        timkiemroom.setText("Search room");
+        timkiemroom.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        timkiemroom.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                timkiemnvMouseClicked(evt);
+                timkiemroomMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                timkiemnvMouseEntered(evt);
+                timkiemroomMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                timkiemnvMouseExited(evt);
-            }
-        });
-
-        timkiemnv2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        timkiemnv2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        timkiemnv2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlykhachsan/HinhAnh/search_48px (2).png"))); // NOI18N
-        timkiemnv2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                timkiemnv2MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                timkiemnv2MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                timkiemnv2MouseExited(evt);
+                timkiemroomMouseExited(evt);
             }
         });
 
@@ -514,7 +473,7 @@ public final class tieptanGUI extends javax.swing.JFrame {
                         .addGap(91, 91, 91)
                         .addComponent(roomtype2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
-                        .addComponent(timkiemnv, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(timkiemroom, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(datphong1Layout.createSequentialGroup()
                         .addGroup(datphong1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel57)
@@ -524,12 +483,7 @@ public final class tieptanGUI extends javax.swing.JFrame {
                             .addComponent(checkin, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
                             .addComponent(checkout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
-                .addGroup(datphong1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(datphong1Layout.createSequentialGroup()
-                        .addGap(374, 374, 374)
-                        .addComponent(timkiemnv2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(coderoom3))
+                .addGroup(datphong1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50))
@@ -558,7 +512,7 @@ public final class tieptanGUI extends javax.swing.JFrame {
                             .addGroup(datphong1Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addGroup(datphong1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(timkiemnv)
+                                    .addComponent(timkiemroom)
                                     .addComponent(roomtype2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel56, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -566,10 +520,6 @@ public final class tieptanGUI extends javax.swing.JFrame {
                         .addGap(0, 0, 0)
                         .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(datphong1Layout.createSequentialGroup()
-                        .addGroup(datphong1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(timkiemnv2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(coderoom3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15)
                         .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -674,22 +624,6 @@ public final class tieptanGUI extends javax.swing.JFrame {
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("Service list");
 
-        timkiemnv5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        timkiemnv5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        timkiemnv5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlykhachsan/HinhAnh/search_48px (2).png"))); // NOI18N
-
-        jTextField4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField4.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField4.setText("Code room");
-        jTextField4.setToolTipText("Customer's fullname");
-        jTextField4.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jTextField4.setName("Customer's fullname"); // NOI18N
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout dichvubillLayout = new javax.swing.GroupLayout(dichvubill);
         dichvubill.setLayout(dichvubillLayout);
         dichvubillLayout.setHorizontalGroup(
@@ -699,21 +633,14 @@ public final class tieptanGUI extends javax.swing.JFrame {
                 .addComponent(jLabel38)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(dichvubillLayout.createSequentialGroup()
-                .addGroup(dichvubillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(dichvubillLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(timkiemnv5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, dichvubillLayout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addGroup(dichvubillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(30, 30, 30)
-                        .addGroup(dichvubillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(45, 45, 45)
+                .addGroup(dichvubillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addGroup(dichvubillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(133, Short.MAX_VALUE))
         );
         dichvubillLayout.setVerticalGroup(
@@ -723,19 +650,14 @@ public final class tieptanGUI extends javax.swing.JFrame {
                 .addComponent(jLabel38)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addGap(105, 105, 105)
                 .addGroup(dichvubillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(dichvubillLayout.createSequentialGroup()
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addGroup(dichvubillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(dichvubillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane16, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
-                            .addComponent(jScrollPane10)))
-                    .addComponent(timkiemnv5))
+                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(dichvubillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane16, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+                    .addComponent(jScrollPane10))
                 .addGap(20, 20, 20))
         );
 
@@ -821,11 +743,11 @@ public final class tieptanGUI extends javax.swing.JFrame {
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("Available Room list");
+        jLabel14.setText("Service Invoice Information");
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("Available Room list");
+        jLabel16.setText("Invoices Communication Room");
 
         maphong5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         maphong5.setToolTipText("Customer's fullname");
@@ -850,38 +772,39 @@ public final class tieptanGUI extends javax.swing.JFrame {
             }
         });
 
-        timkiemnv7.setBackground(new java.awt.Color(255, 255, 255));
-        timkiemnv7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        timkiemnv7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        timkiemnv7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlykhachsan/HinhAnh/print_80px.png"))); // NOI18N
-        timkiemnv7.setText("Print bill");
-        timkiemnv7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        timkiemnv7.addMouseListener(new java.awt.event.MouseAdapter() {
+        inhoadon.setBackground(new java.awt.Color(255, 255, 255));
+        inhoadon.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        inhoadon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        inhoadon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlykhachsan/HinhAnh/print_80px.png"))); // NOI18N
+        inhoadon.setText("Print bill");
+        inhoadon.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        inhoadon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                timkiemnv7MouseClicked(evt);
+                inhoadonMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                timkiemnv7MouseEntered(evt);
+                inhoadonMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                timkiemnv7MouseExited(evt);
+                inhoadonMouseExited(evt);
             }
         });
 
-        timkiemnv8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        timkiemnv8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        timkiemnv8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlykhachsan/HinhAnh/search_48px (2).png"))); // NOI18N
-        timkiemnv8.setText("Search room");
-        timkiemnv8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        timkiemnv8.addMouseListener(new java.awt.event.MouseAdapter() {
+        timkiemphong3.setBackground(new java.awt.Color(255, 255, 255));
+        timkiemphong3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        timkiemphong3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        timkiemphong3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlykhachsan/HinhAnh/search_48px (2).png"))); // NOI18N
+        timkiemphong3.setText("Search room");
+        timkiemphong3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        timkiemphong3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                timkiemnv8MouseClicked(evt);
+                timkiemphong3MouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                timkiemnv8MouseEntered(evt);
+                timkiemphong3MouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                timkiemnv8MouseExited(evt);
+                timkiemphong3MouseExited(evt);
             }
         });
 
@@ -897,11 +820,11 @@ public final class tieptanGUI extends javax.swing.JFrame {
                 .addGap(56, 56, 56)
                 .addGroup(hoadonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, hoadonLayout.createSequentialGroup()
-                        .addComponent(timkiemnv8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(timkiemphong3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(maphong5, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44)
-                        .addComponent(timkiemnv7, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(inhoadon, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane18, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(56, 56, 56)
@@ -920,12 +843,12 @@ public final class tieptanGUI extends javax.swing.JFrame {
                 .addGroup(hoadonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(hoadonLayout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addComponent(timkiemnv7)
+                        .addComponent(inhoadon)
                         .addGap(1, 1, 1))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, hoadonLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(hoadonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(timkiemnv8)
+                            .addComponent(timkiemphong3)
                             .addComponent(maphong5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(hoadonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1084,22 +1007,22 @@ public final class tieptanGUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_datphong1FocusGained
 
-    private void timkiemnvMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timkiemnvMouseExited
-        timkiemnv.setBackground(Color.WHITE);
-    }//GEN-LAST:event_timkiemnvMouseExited
+    private void timkiemroomMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timkiemroomMouseExited
+        timkiemroom.setBackground(Color.WHITE);
+    }//GEN-LAST:event_timkiemroomMouseExited
 
-    private void timkiemnvMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timkiemnvMouseEntered
+    private void timkiemroomMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timkiemroomMouseEntered
         // TODO add your handling code here:
-        timkiemnv.setBackground(Color.LIGHT_GRAY);
-        timkiemnv.setOpaque(true);
-    }//GEN-LAST:event_timkiemnvMouseEntered
+        timkiemroom.setBackground(Color.LIGHT_GRAY);
+        timkiemroom.setOpaque(true);
+    }//GEN-LAST:event_timkiemroomMouseEntered
 
-    private void timkiemnvMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timkiemnvMouseClicked
+    private void timkiemroomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timkiemroomMouseClicked
 
         Date checkin1 = this.checkin.getDate();
         Date checkout1 = this.checkout.getDate();
-        String checkinString = checkin1.getDate() + "-" + (checkin1.getMonth() + 1) + "-" + (checkin1.getYear() + 1900);
-        String checkoutString = checkout1.getDate() + "-" + (checkout1.getMonth() + 1) + "-" + (checkout1.getYear() + 1900);
+        checkinString = checkin1.getDate() + "-" + (checkin1.getMonth() + 1) + "-" + (checkin1.getYear() + 1900);
+        checkoutString = checkout1.getDate() + "-" + (checkout1.getMonth() + 1) + "-" + (checkout1.getYear() + 1900);
         String loaiphongString = roomtype2.getSelectedItem().toString();
         datphongBUS dpBUS;
 
@@ -1114,46 +1037,7 @@ public final class tieptanGUI extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(tieptanGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_timkiemnvMouseClicked
-
-    private void coderoom3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_coderoom3KeyPressed
-        // TODO add your handling code here:
-        datphongBUS dpBUS;
-        try {
-            dpBUS = new datphongBUS();
-            dpBUS.timkiemphongdat(coderoom3.getText(), (DefaultTableModel) tblbookroom.getModel());
-            System.err.println(coderoom3.getText());
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Thông báo lỗi", JOptionPane.ERROR_MESSAGE);
-            Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_coderoom3KeyPressed
-
-    private void coderoom3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_coderoom3FocusLost
-        // TODO add your handling code here:
-//        if (coderoom3.getText().equals("")) {
-//            coderoom3.setText("code room");
-//            coderoom3.setForeground(new Color(204, 204, 204));
-//        }
-//         if (coderoom3.getText().equals("code room")) {
-//            coderoom3.setText("");
-//            coderoom3.setForeground(new Color(0, 0, 0));
-//            
-//        }
-    }//GEN-LAST:event_coderoom3FocusLost
-
-    private void coderoom3FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_coderoom3FocusGained
-        // TODO add your handling code here:
-//        if (coderoom3.getText().equals("code room")) {
-//            coderoom3.setText("");
-//            coderoom3.setForeground(new Color(0, 0, 0));
-//            
-////        }
-//         if (coderoom3.getText().equals("")) {
-//            coderoom3.setText("code room");
-//            coderoom3.setForeground(new Color(204, 204, 204));
-//        }
-    }//GEN-LAST:event_coderoom3FocusGained
+    }//GEN-LAST:event_timkiemroomMouseClicked
 
     private void tblbookroomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblbookroomMouseClicked
         // TODO add your handling code here:
@@ -1235,13 +1119,18 @@ public final class tieptanGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_tblphongcosanMouseEntered
 
     private void tblphongcosanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblphongcosanMouseClicked
-        // TODO add your handling code here:
-
+        try {
+            // TODO add your handling code here:
+            br =new Bookroom();
+        } catch (SQLException | ParseException ex) {
+            Logger.getLogger(tieptanGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
         if (evt.getButton() == 3) {
             JPopupMenu a = new JPopupMenu();
             JMenuItem b = new JMenuItem("    Book room    ");
             b.setFont(new Font("Segoe UI", Font.PLAIN, 18));
             b.addActionListener((ActionEvent e) -> {
+                
                 br.setVisible(true);
 
             });
@@ -1272,44 +1161,128 @@ public final class tieptanGUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tblbookroomMouseEntered
 
-    private void timkiemnv2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timkiemnv2MouseClicked
+    private void hoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hoadonMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_timkiemnv2MouseClicked
+    }//GEN-LAST:event_hoadonMouseClicked
 
-    private void timkiemnv2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timkiemnv2MouseEntered
+    private void maphong5FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_maphong5FocusGained
         // TODO add your handling code here:
-//        timkiemnv2.setBackground(Color.LIGHT_GRAY);
-//        timkiemnv2.setOpaque(true);
-    }//GEN-LAST:event_timkiemnv2MouseEntered
+    }//GEN-LAST:event_maphong5FocusGained
 
-    private void timkiemnv2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timkiemnv2MouseExited
+    private void maphong5FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_maphong5FocusLost
         // TODO add your handling code here:
-//        timkiemnv2.setBackground(Color.WHITE);
-    }//GEN-LAST:event_timkiemnv2MouseExited
+    }//GEN-LAST:event_maphong5FocusLost
 
-    private void tbldichvuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbldichvuMouseClicked
+    private void maphong5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maphong5ActionPerformed
         // TODO add your handling code here:
-        if (evt.getButton() == 3) {
-            JPopupMenu a = new JPopupMenu();
-            JMenuItem b = new JMenuItem("    Sign up service  ");
-            b.setFont(new Font("Segoe UI", Font.PLAIN, 18));
-            b.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String madv = (String) tbldichvu.getValueAt(tbldichvu.rowAtPoint(evt.getPoint()), 0);
-                    String tendv = (String) tbldichvu.getValueAt(tbldichvu.rowAtPoint(evt.getPoint()), 1);
-                    String gia = (String) tbldichvu.getValueAt(tbldichvu.rowAtPoint(evt.getPoint()), 3);
-                    tendv1.setText(tendv);
-                    gia1.setText(gia);
-                    dv.setVisible(true);
-                }
-            });
+    }//GEN-LAST:event_maphong5ActionPerformed
 
-            a.add(b);
-            a.show(evt.getComponent(), evt.getX(), evt.getY());
+    private void maphong5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_maphong5KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_maphong5KeyPressed
 
+    private void timkiemphong3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timkiemphong3MouseClicked
+        // TODO add your handling code here:
+        hoadonBUS hd;
+        try {
+            hd = new hoadonBUS();
+            hd.showhoadonphong(maphong5.getText(), (DefaultTableModel) tblhoadonphong.getModel());
+            hd.showhoadondichvu(maphong5.getText(), (DefaultTableModel) tblhddv.getModel());
+        } catch (SQLException ex) {
+            Logger.getLogger(tieptanGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_tbldichvuMouseClicked
+    }//GEN-LAST:event_timkiemphong3MouseClicked
+
+    private void timkiemphong3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timkiemphong3MouseEntered
+        // TODO add your handling code here:
+        timkiemphong3.setBackground(Color.LIGHT_GRAY);
+        timkiemphong3.setOpaque(true);
+    }//GEN-LAST:event_timkiemphong3MouseEntered
+
+    private void timkiemphong3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timkiemphong3MouseExited
+        // TODO add your handling code here:
+        timkiemphong3.setBackground(Color.WHITE);
+    }//GEN-LAST:event_timkiemphong3MouseExited
+
+    private void tblhoadonphongMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblhoadonphongMouseMoved
+        // TODO add your handling code here:
+        int row = tblhoadonphong.rowAtPoint(evt.getPoint());
+        tblhoadonphong.setRowSelectionInterval(row, row);
+    }//GEN-LAST:event_tblhoadonphongMouseMoved
+
+    private void tblhddvMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblhddvMouseMoved
+        // TODO add your handling code here:s
+        int row = tblhddv.rowAtPoint(evt.getPoint());
+        tblhddv.setRowSelectionInterval(row, row);
+    }//GEN-LAST:event_tblhddvMouseMoved
+
+    private void datphong1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_datphong1MouseMoved
+        // TODO add your handling code here:
+        try {
+            //        try {
+//            // TODO add your handling code here:
+//            load_table_allRoom();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(tieptanGUI.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+            load_table_bookroom();
+        } catch (SQLException ex) {
+            Logger.getLogger(tieptanGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_datphong1MouseMoved
+
+    private void inhoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inhoadonMouseClicked
+        // TODO add your handling code here:
+        hoadonBUS hd;
+        iReportDAO ir;
+        try {
+            ir = new iReportDAO();
+            hd = new hoadonBUS();
+            hd.themhoadon(maphong5.getText());
+            ir.hoadon(maphong5.getText());
+        } catch (SQLException | JRException ex) {
+            Logger.getLogger(tieptanGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_inhoadonMouseClicked
+
+    private void inhoadonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inhoadonMouseEntered
+        // TODO add your handling code here:
+        inhoadon.setBackground(Color.LIGHT_GRAY);
+        inhoadon.setOpaque(true);
+    }//GEN-LAST:event_inhoadonMouseEntered
+
+    private void inhoadonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inhoadonMouseExited
+        // TODO add your handling code here:
+        inhoadon.setBackground(Color.WHITE);
+
+    }//GEN-LAST:event_inhoadonMouseExited
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void jLabel7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseEntered
+        // TODO add your handling code here:
+        jLabel7.setBackground(Color.LIGHT_GRAY);
+        jLabel7.setOpaque(true);
+    }//GEN-LAST:event_jLabel7MouseEntered
+
+    private void jLabel7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseExited
+        // TODO add your handling code here:
+        jLabel7.setBackground(new Color(27, 186, 213));
+    }//GEN-LAST:event_jLabel7MouseExited
+
+    private void dichvubillMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dichvubillMouseMoved
+        try {
+            // TODO add your handling code here:
+            load_sddv();
+        } catch (SQLException ex) {
+            Logger.getLogger(tieptanGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_dichvubillMouseMoved
 
     private void tblsddvMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblsddvMouseClicked
         // TODO add your handling code here:
@@ -1349,157 +1322,39 @@ public final class tieptanGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tblsddvMouseClicked
 
-    private void coderoom3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_coderoom3ActionPerformed
-        // TODO add your handling code here:
-        datphongBUS dpBUS;
-        try {
-            dpBUS = new datphongBUS();
-            dpBUS.timkiemphongdat(coderoom3.getText(), (DefaultTableModel) tblbookroom.getModel());
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Thông báo lỗi", JOptionPane.ERROR_MESSAGE);
-            Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_coderoom3ActionPerformed
-
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
-
-    private void hoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hoadonMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_hoadonMouseClicked
-
-    private void maphong5FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_maphong5FocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_maphong5FocusGained
-
-    private void maphong5FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_maphong5FocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_maphong5FocusLost
-
-    private void maphong5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maphong5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_maphong5ActionPerformed
-
-    private void maphong5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_maphong5KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_maphong5KeyPressed
-
-    private void dichvubillMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dichvubillMouseMoved
-        try {
-            // TODO add your handling code here:
-            load_sddv();
-        } catch (SQLException ex) {
-            Logger.getLogger(tieptanGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-
-    }//GEN-LAST:event_dichvubillMouseMoved
-
-    private void timkiemnv8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timkiemnv8MouseClicked
-        // TODO add your handling code here:
-        hoadonBUS hd;
-        try {
-            hd = new hoadonBUS();
-            hd.showhoadonphong(maphong5.getText(), (DefaultTableModel) tblhoadonphong.getModel());
-            hd.showhoadondichvu(maphong5.getText(), (DefaultTableModel) tblhddv.getModel());
-        } catch (SQLException ex) {
-            Logger.getLogger(tieptanGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_timkiemnv8MouseClicked
-
-    private void timkiemnv8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timkiemnv8MouseEntered
-        // TODO add your handling code here:
-        timkiemnv8.setBackground(Color.LIGHT_GRAY);
-        timkiemnv8.setOpaque(true);
-    }//GEN-LAST:event_timkiemnv8MouseEntered
-
-    private void timkiemnv8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timkiemnv8MouseExited
-        // TODO add your handling code here:
-        timkiemnv8.setBackground(Color.WHITE);
-    }//GEN-LAST:event_timkiemnv8MouseExited
-
-    private void tbldichvuMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbldichvuMouseMoved
-        // TODO add your handling code here:int row = tblphongcosan.rowAtPoint(evt.getPoint());
-        int row = tbldichvu.rowAtPoint(evt.getPoint());
-        tbldichvu.setRowSelectionInterval(row, row);
-    }//GEN-LAST:event_tbldichvuMouseMoved
-
     private void tblsddvMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblsddvMouseMoved
         // TODO add your handling code here:
         int row = tblsddv.rowAtPoint(evt.getPoint());
         tblsddv.setRowSelectionInterval(row, row);
     }//GEN-LAST:event_tblsddvMouseMoved
 
-    private void tblhoadonphongMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblhoadonphongMouseMoved
+    private void tbldichvuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbldichvuMouseClicked
         // TODO add your handling code here:
-        int row = tblhoadonphong.rowAtPoint(evt.getPoint());
-        tblhoadonphong.setRowSelectionInterval(row, row);
-    }//GEN-LAST:event_tblhoadonphongMouseMoved
+        dv = new dichvuGUI();
+        if (evt.getButton() == 3) {
+            JPopupMenu a = new JPopupMenu();
+            JMenuItem b = new JMenuItem("    Sign up service  ");
+            b.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+            b.addActionListener((ActionEvent e) -> {
+                String madv = (String) tbldichvu.getValueAt(tbldichvu.rowAtPoint(evt.getPoint()), 0);
+                String tendv = (String) tbldichvu.getValueAt(tbldichvu.rowAtPoint(evt.getPoint()), 1);
+                String gia = (String) tbldichvu.getValueAt(tbldichvu.rowAtPoint(evt.getPoint()), 3);
+                tendv1.setText(tendv);
+                gia1.setText(gia);
+                dv.setVisible(true);
+            });
 
-    private void tblhddvMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblhddvMouseMoved
-        // TODO add your handling code here:s
-        int row = tblhddv.rowAtPoint(evt.getPoint());
-        tblhddv.setRowSelectionInterval(row, row);
-    }//GEN-LAST:event_tblhddvMouseMoved
+            a.add(b);
+            a.show(evt.getComponent(), evt.getX(), evt.getY());
 
-    private void datphong1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_datphong1MouseMoved
-        // TODO add your handling code here:
-        try {
-            //        try {
-//            // TODO add your handling code here:
-//            load_table_allRoom();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(tieptanGUI.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-            load_table_bookroom();
-        } catch (SQLException ex) {
-            Logger.getLogger(tieptanGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_datphong1MouseMoved
+    }//GEN-LAST:event_tbldichvuMouseClicked
 
-    private void timkiemnv7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timkiemnv7MouseClicked
-        // TODO add your handling code here:
-        hoadonBUS hd;
-        iReportDAO ir;
-        try {
-            ir = new  iReportDAO();
-            hd = new hoadonBUS();
-            hd.themhoadon(maphong5.getText());
-             ir.hoadon(maphong5.getText());
-        } catch (SQLException | JRException ex) {
-            Logger.getLogger(tieptanGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-  
-    }//GEN-LAST:event_timkiemnv7MouseClicked
-
-    private void timkiemnv7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timkiemnv7MouseEntered
-        // TODO add your handling code here:
-        timkiemnv7.setBackground(Color.LIGHT_GRAY);
-        timkiemnv7.setOpaque(true);
-    }//GEN-LAST:event_timkiemnv7MouseEntered
-
-    private void timkiemnv7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timkiemnv7MouseExited
-        // TODO add your handling code here:
-        timkiemnv8.setBackground(Color.WHITE);
-      
-    }//GEN-LAST:event_timkiemnv7MouseExited
-
-    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        // TODO add your handling code here:
-         this.dispose();
-    }//GEN-LAST:event_jLabel7MouseClicked
-
-    private void jLabel7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseEntered
-        // TODO add your handling code here:
-        jLabel7.setBackground(Color.LIGHT_GRAY);
-        jLabel7.setOpaque(true);
-    }//GEN-LAST:event_jLabel7MouseEntered
-
-    private void jLabel7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseExited
-        // TODO add your handling code here:
-        jLabel7.setBackground(new Color(27, 186, 213));
-    }//GEN-LAST:event_jLabel7MouseExited
+    private void tbldichvuMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbldichvuMouseMoved
+        // TODO add your handling code here:int row = tblphongcosan.rowAtPoint(evt.getPoint());
+        int row = tbldichvu.rowAtPoint(evt.getPoint());
+        tbldichvu.setRowSelectionInterval(row, row);
+    }//GEN-LAST:event_tbldichvuMouseMoved
 
     /**
      * @param args the command line arguments
@@ -1531,10 +1386,10 @@ public final class tieptanGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser checkin;
     private com.toedter.calendar.JDateChooser checkout;
-    private javax.swing.JTextField coderoom3;
     public static javax.swing.JPanel datphong1;
     private javax.swing.JPanel dichvubill;
     private javax.swing.JPanel hoadon;
+    private javax.swing.JLabel inhoadon;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -1565,7 +1420,6 @@ public final class tieptanGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane18;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField4;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JTextField maphong5;
     private javax.swing.JComboBox<String> roomtype2;
@@ -1575,10 +1429,7 @@ public final class tieptanGUI extends javax.swing.JFrame {
     private javax.swing.JTable tblhoadonphong;
     public static javax.swing.JTable tblphongcosan;
     private javax.swing.JTable tblsddv;
-    private javax.swing.JLabel timkiemnv;
-    private javax.swing.JLabel timkiemnv2;
-    private javax.swing.JLabel timkiemnv5;
-    private javax.swing.JLabel timkiemnv7;
-    private javax.swing.JLabel timkiemnv8;
+    private javax.swing.JLabel timkiemphong3;
+    private javax.swing.JLabel timkiemroom;
     // End of variables declaration//GEN-END:variables
 }

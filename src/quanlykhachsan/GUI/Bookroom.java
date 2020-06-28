@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
@@ -17,18 +18,23 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import quanlykhachsan.BUS.datphongBUS;
 import quanlykhachsan.DTO.datphongDTO;
+import static quanlykhachsan.GUI.tieptanGUI.checkinString;
+import static quanlykhachsan.GUI.tieptanGUI.checkoutString;
+
 
 /**
  *
  * @author Duy Minh
  */
-public class Bookroom extends javax.swing.JFrame {
+public final class Bookroom extends javax.swing.JFrame {
 
-    public Bookroom() throws SQLException {
+    
+    public Bookroom() throws SQLException, ParseException {
         initComponents();
         this.setLocationRelativeTo(null);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+       
     }
 
     /**
@@ -40,11 +46,12 @@ public class Bookroom extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dateChooserDialog1 = new datechooser.beans.DateChooserDialog();
         Bookroom1 = new javax.swing.JPanel();
         gender1 = new javax.swing.JComboBox<>();
         birthday1 = new com.toedter.calendar.JDateChooser();
         jLabel31 = new javax.swing.JLabel();
-        cmnd1 = new javax.swing.JTextField();
+        sokhach2 = new javax.swing.JTextField();
         phonenumber1 = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
@@ -63,10 +70,6 @@ public class Bookroom extends javax.swing.JFrame {
         maroom1 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        bookingdate1 = new com.toedter.calendar.JDateChooser();
-        jLabel15 = new javax.swing.JLabel();
-        arrivaldate1 = new com.toedter.calendar.JDateChooser();
-        jLabel16 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
         cmnd2 = new javax.swing.JTextField();
 
@@ -110,10 +113,10 @@ public class Bookroom extends javax.swing.JFrame {
             }
         });
 
-        cmnd1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        cmnd1.addActionListener(new java.awt.event.ActionListener() {
+        sokhach2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        sokhach2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmnd1ActionPerformed(evt);
+                sokhach2ActionPerformed(evt);
             }
         });
 
@@ -179,14 +182,6 @@ public class Bookroom extends javax.swing.JFrame {
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        bookingdate1.setEnabled(false);
-
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel15.setText("Arrival Date");
-
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel16.setText("Booking Date");
-
         jLabel32.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel32.setText("Number of guests:");
 
@@ -201,60 +196,48 @@ public class Bookroom extends javax.swing.JFrame {
         Bookroom1.setLayout(Bookroom1Layout);
         Bookroom1Layout.setHorizontalGroup(
             Bookroom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Bookroom1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Bookroom1Layout.createSequentialGroup()
+                .addGap(90, 90, 90)
+                .addGroup(Bookroom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel26)
+                    .addComponent(jLabel24)
+                    .addComponent(jLabel27)
+                    .addComponent(jLabel25)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel28)
+                    .addComponent(jLabel29))
+                .addGap(70, 70, 70)
+                .addGroup(Bookroom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(phonenumber1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(birthday1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
+                    .addComponent(fullname1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(typeofcus1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(gender1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmnd2, javax.swing.GroupLayout.Alignment.LEADING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 253, Short.MAX_VALUE)
+                .addGroup(Bookroom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Bookroom1Layout.createSequentialGroup()
+                        .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel14))
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(430, 430, 430))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Bookroom1Layout.createSequentialGroup()
                 .addGap(231, 231, 231)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(212, 212, 212))
-            .addGroup(Bookroom1Layout.createSequentialGroup()
-                .addGap(90, 90, 90)
                 .addGroup(Bookroom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Bookroom1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(302, 302, 302))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Bookroom1Layout.createSequentialGroup()
                         .addGroup(Bookroom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel26)
-                            .addComponent(jLabel24)
-                            .addComponent(jLabel27)
-                            .addComponent(jLabel25)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel28)
-                            .addComponent(jLabel29))
-                        .addGap(70, 70, 70))
-                    .addGroup(Bookroom1Layout.createSequentialGroup()
-                        .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)))
-                .addGroup(Bookroom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmnd1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(Bookroom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(phonenumber1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(birthday1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
-                        .addComponent(fullname1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(typeofcus1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(gender1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmnd2, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
-                .addGroup(Bookroom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Bookroom1Layout.createSequentialGroup()
-                        .addGap(195, 195, 195)
-                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 319, Short.MAX_VALUE))
-                    .addGroup(Bookroom1Layout.createSequentialGroup()
-                        .addGap(126, 126, 126)
-                        .addGroup(Bookroom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel15)
-                            .addGroup(Bookroom1Layout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel14)))
-                        .addGap(80, 80, 80)
-                        .addGroup(Bookroom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(maroom1)
-                            .addComponent(arrivaldate1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bookingdate1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(107, Short.MAX_VALUE))))
+                            .addComponent(sokhach2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(maroom1))
+                        .addGap(309, 309, 309))))
         );
         Bookroom1Layout.setVerticalGroup(
             Bookroom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,23 +257,23 @@ public class Bookroom extends javax.swing.JFrame {
                                 .addComponent(maroom1)))
                         .addGroup(Bookroom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(Bookroom1Layout.createSequentialGroup()
-                                .addGap(51, 51, 51)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Bookroom1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                                 .addGroup(Bookroom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(bookingdate1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(Bookroom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Bookroom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(gender1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(30, 30, 30)))
-                        .addGroup(Bookroom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(birthday1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(arrivaldate1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(Bookroom1Layout.createSequentialGroup()
+                                        .addGap(51, 51, 51)
+                                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Bookroom1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(Bookroom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(gender1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel32, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(32, 32, 32)))
+                                .addComponent(birthday1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(Bookroom1Layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(sokhach2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(Bookroom1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel29)))
@@ -310,15 +293,14 @@ public class Bookroom extends javax.swing.JFrame {
                 .addGroup(Bookroom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel25)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addGroup(Bookroom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmnd1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
-                .addGroup(Bookroom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel30)
-                    .addComponent(jLabel31))
-                .addGap(17, 17, 17))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addGroup(Bookroom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Bookroom1Layout.createSequentialGroup()
+                        .addComponent(jLabel30)
+                        .addGap(17, 17, 17))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Bookroom1Layout.createSequentialGroup()
+                        .addComponent(jLabel31)
+                        .addGap(27, 27, 27))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -340,10 +322,14 @@ public class Bookroom extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+//    public void setngay() throws ParseException{
+// 
 
-    private void cmnd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmnd1ActionPerformed
+//    
+//    }
+    private void sokhach2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sokhach2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmnd1ActionPerformed
+    }//GEN-LAST:event_sokhach2ActionPerformed
 
     private void jLabel31MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel31MouseClicked
         // TODO add your handling code here:`
@@ -362,17 +348,13 @@ public class Bookroom extends javax.swing.JFrame {
         Date birthday = birthday1.getDate();
         String ngsinh = birthday.getDate() + "-" + (birthday.getMonth() + 1) + "-" + (birthday.getYear() + 1900);
         String sodt = phonenumber1.getText();
-        String cmnd = cmnd1.getText();
+        String cmnd = sokhach2.getText();
         String loaikh = typeofcus1.getSelectedItem().toString();
         String diachi = address1.getText();
-        String sokhach = cmnd1.getText();
+        String sokhach = sokhach2.getText();
         int sokhach1 = Integer.parseInt(sokhach);
         String maphong = maroom1.getText();
-        Date ngaydat = bookingdate1.getDate();
-        Date ngaynhan = arrivaldate1.getDate();
         Date nowday = new Date();
-        String ngdat = ngaydat.getDate() + "-" + (ngaydat.getMonth() + 1) + "-" + (ngaydat.getYear() + 1900);
-        String ngnhan = ngaynhan.getDate() + "-" + (ngaynhan.getMonth() + 1) + "-" + (ngaynhan.getYear() + 1900);
         String user1 = LoginGUI.user;
         if (sokhach1 > 3) {
             JOptionPane.showMessageDialog(null, "The number of guests exceeds the prescribed ", "Error messages", JOptionPane.ERROR_MESSAGE);
@@ -380,41 +362,34 @@ public class Bookroom extends javax.swing.JFrame {
             if ((nowday.getYear() - birthday.getYear()) < 16) {
                 JOptionPane.showMessageDialog(null, "The customer is not old enough", "Error messages", JOptionPane.ERROR_MESSAGE);
             } else {
-                if (ngaynhan.before(ngaydat)) {
-                    JOptionPane.showMessageDialog(null, "Date of receipt specified ", "Error messages", JOptionPane.ERROR_MESSAGE);
+
+                if (sokhach2.getText().isEmpty() || fullname1.getText().isEmpty() || phonenumber1.getText().isEmpty() || address1.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Date set not specified ", "Error messages", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    if (ngaydat.after(ngaynhan)) {
-                        JOptionPane.showMessageDialog(null, "Date set not specified ", "Error messages", JOptionPane.ERROR_MESSAGE);
-                    } else {
-                        if (cmnd1.getText().isEmpty() || fullname1.getText().isEmpty() || phonenumber1.getText().isEmpty() || address1.getText().isEmpty()) {
-                            JOptionPane.showMessageDialog(null, "Date set not specified ", "Error messages", JOptionPane.ERROR_MESSAGE);
-                        } else {
 
-                            datphongDTO dp;
-                            dp = new datphongDTO(maphong, ngdat, ngnhan, htkh, ngsinh, gioitinh, cmnd, sodt, loaikh, diachi,sokhach,user1);
-                            datphongBUS dpBUS;
-                            try {
+                    datphongDTO dp;
+                    dp = new datphongDTO(maphong, checkinString, checkoutString, htkh, ngsinh, gioitinh, cmnd, sodt, loaikh, diachi, sokhach, user1);
+                    datphongBUS dpBUS;
+                    try {
 
-                                dpBUS = new datphongBUS();
-                                if (dpBUS.themdatphong(dp) == true) {
-                                    JOptionPane.showConfirmDialog(null, "Do you want to book", "Notice", JOptionPane.OK_CANCEL_OPTION);
-
-                                    this.dispose();
-
-                                } else {
-                                    JOptionPane.showMessageDialog(null, "Add success", "Notice", JOptionPane.NO_OPTION);
-                                }
-
-                            } catch (SQLException ex) {
-                                Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
-
-                                JOptionPane.showMessageDialog(null, "Cannot book ", "Error messages", JOptionPane.ERROR_MESSAGE);
+                        dpBUS = new datphongBUS();
+                        int c = JOptionPane.showConfirmDialog(null, "Do you want to book room", "Notice", JOptionPane.OK_CANCEL_OPTION);
+                        if (c == 0) {
+                            if (dpBUS.themdatphong(dp) == true) {
+                                JOptionPane.showMessageDialog(null, "Book success", "Notice", JOptionPane.NO_OPTION);
+                                this.dispose();
 
                             }
                         }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
+
+                        JOptionPane.showMessageDialog(null, "Cannot book ", "Error messages", JOptionPane.ERROR_MESSAGE);
+
                     }
                 }
             }
+
         }
     }//GEN-LAST:event_jLabel30MouseClicked
 
@@ -466,7 +441,11 @@ public class Bookroom extends javax.swing.JFrame {
             @Override
             public void run() {
                 try {
-                    new Bookroom().setVisible(true);
+                    try {
+                        new Bookroom().setVisible(true);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(Bookroom.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } catch (SQLException ex) {
                     Logger.getLogger(Bookroom.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -478,19 +457,15 @@ public class Bookroom extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JPanel Bookroom1;
     private javax.swing.JEditorPane address1;
-    private com.toedter.calendar.JDateChooser arrivaldate1;
     private com.toedter.calendar.JDateChooser birthday1;
-    private com.toedter.calendar.JDateChooser bookingdate1;
-    private javax.swing.JTextField cmnd1;
     private javax.swing.JTextField cmnd2;
+    private datechooser.beans.DateChooserDialog dateChooserDialog1;
     private javax.swing.JTextField fullname1;
     private javax.swing.JComboBox<String> gender1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
@@ -504,6 +479,7 @@ public class Bookroom extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     protected static javax.swing.JLabel maroom1;
     private javax.swing.JTextField phonenumber1;
+    private javax.swing.JTextField sokhach2;
     private javax.swing.JComboBox<String> typeofcus1;
     // End of variables declaration//GEN-END:variables
 }
