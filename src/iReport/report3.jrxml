@@ -10,7 +10,7 @@
 		<![CDATA[SELECT *
 FROM
     (select MADP, MAKH, MAPHONG, (case
-                            when NGAYDI = NGAYTHUE then 1
+                            when TO_CHAR(NGAYDI,'dd-MM-yyyy') = TO_CHAR(ngaythue,'dd-MM-yyyy') then 1
                             else round((MONTHS_BETWEEN(NGAYDI, NGAYTHUE))*31)
                         end ) SONGAYTHUE
     from PHIEUDATPHONG
@@ -29,9 +29,7 @@ left JOIN
     group by  SD.MADP, dv.tendv, dv.gia
 	ORDER BY SD.MADP, dv.tendv, dv.gia ) sddv ON SDdv.MADP = DP.MADP
 left join phong ph on ph.maphong = dp.maphong
-left join loaiphong lp on lp.maloaiphong = ph.maloaiphong
-
-]]>
+left join loaiphong lp on lp.maloaiphong = ph.maloaiphong]]>
 	</queryString>
 	<field name="MADP" class="java.lang.String"/>
 	<field name="MAKH" class="java.lang.String"/>

@@ -475,11 +475,8 @@ public final class GiamdocGUI extends javax.swing.JFrame {
                         .addGap(54, 54, 54)
                         .addComponent(jLabel1)))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, 0))
+            .addComponent(jLabel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -647,7 +644,7 @@ public final class GiamdocGUI extends javax.swing.JFrame {
         jLabel24.setText("Officials: ");
 
         gioitinh1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        gioitinh1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nam", "nữ" }));
+        gioitinh1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
         gioitinh1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 gioitinh1ActionPerformed(evt);
@@ -2870,7 +2867,7 @@ public final class GiamdocGUI extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             //Logger.getLogger(GiamdocGUI.class.getName()).log(Level.SEVERE, null, ex);
-
+            JOptionPane.showMessageDialog(null, "Room is being rented", "Notice", JOptionPane.ERROR);
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error messages", JOptionPane.ERROR_MESSAGE);
             return;
         }
